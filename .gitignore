@@ -1,5 +1,3 @@
-#fichiers globaux
-start_server.sh
 
 #fichers du backend
 backend/.phpunit.cache

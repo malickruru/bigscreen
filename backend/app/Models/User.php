@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -42,4 +43,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relation plusieurs à plusieurs entre les utilisateurs et les sondages
+     * retourne tous les sondages auquels un utilisateur a répondu
+     */
+
+    public function surveys(){
+        return $this->belongsToMany(Survey::class,'pivot_user_survey');
+    }
+
+    /**
+     * Relation un à un entre un utilisateurs et son role
+     * retourne le role de l'utilisateur
+     */
+
+     public function role(){
+        return $this->HasOne(Role::class);
+    }
 }
