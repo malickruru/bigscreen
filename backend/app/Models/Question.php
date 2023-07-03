@@ -9,7 +9,12 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = '*';
+    protected $fillable = [
+        'survey_id',
+        'text',
+        'type',
+        'yardstick'
+    ];
 
     /**
      * Relation un à plusieurs entre les sondages et les question

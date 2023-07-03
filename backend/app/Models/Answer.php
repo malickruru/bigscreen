@@ -9,7 +9,13 @@ class Answer extends Model
 {
     use HasFactory;
 
-    protected $fillable = '*';
+    protected $fillable = [
+        'question_id',
+        'user_id',
+        'A_type',
+        'B_type',
+        'C_type'
+    ];
 
     /**
      * Relation un à plusieurs entre une question ces réponses

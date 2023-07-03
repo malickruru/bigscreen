@@ -9,7 +9,10 @@ class Choice extends Model
 {
     use HasFactory;
 
-    protected $fillable = '*';
+    protected $fillable = [
+        'question_id',
+        'text',
+    ];
 
     /**
      * Relation un à plusieurs entre une question de type A et ces choix

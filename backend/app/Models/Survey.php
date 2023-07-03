@@ -9,7 +9,10 @@ class Survey extends Model
 {
     use HasFactory;
 
-    protected $fillable = '*';
+    protected $fillable = [
+        'title',
+        'description',
+    ];
 
     /**
      * Relation plusieurs à plusieurs entre les utilisateurs et les sondages

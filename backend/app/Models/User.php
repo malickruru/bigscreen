@@ -61,4 +61,13 @@ class User extends Authenticatable
      public function role(){
         return $this->HasOne(Role::class);
     }
+
+    /**
+     * Relation un à plusieur entre un utilisateurs et ses réponses
+     * retourne les réponse d'un utilisateur
+     */
+
+     public function answers(){
+        return $this->hasMany(Answer::class);
+    }
 }
