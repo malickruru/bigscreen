@@ -64,10 +64,18 @@ class User extends Authenticatable
 
     /**
      * Relation un à plusieur entre un utilisateurs et ses réponses
-     * retourne les réponse d'un utilisateur
+     * retourne les réponses d'un utilisateur
      */
 
      public function answers(){
         return $this->hasMany(Answer::class);
+    }
+
+    /**
+     * retourne les réponses d'un utilisateur en fonction d'un sondage
+     */
+
+     public function answersBySurvey($survey_id){
+        return $this->hasMany(Answer::class)->get()->where('survey_id','=', $survey_id);
     }
 }
