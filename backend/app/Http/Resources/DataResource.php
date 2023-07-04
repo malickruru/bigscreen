@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Choice;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,12 +20,14 @@ class DataResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $counts = collect($this->answers())->countBy(function ($item) {
+        $counts = collect($this->answers)->countBy(function ($item) {
             return $item->A_type;
         });
 
         return [
-            'labels' => $counts->keys(),
+            'labels' => collect($counts->keys())->map(function ($item){
+                return Choice::findOrFail($item)->text;
+            }),
             'data' => $counts->flatten()
         ];
     }

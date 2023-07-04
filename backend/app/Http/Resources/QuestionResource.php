@@ -14,12 +14,19 @@ class QuestionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        
+
+        $ressource =  [
             'id' => $this->id,
             'text' => $this->text,
             'type' => $this->type,
             'yardstick' => $this->yardstick,
-            'choices' => ChoiceResource::collection($this->choice),
         ];
+
+        if($this->type == 'A'){
+            $ressource['choices'] = ChoiceResource::collection($this->choices);
+        }
+
+        return $ressource;
     }
 }

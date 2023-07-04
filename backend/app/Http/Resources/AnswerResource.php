@@ -16,13 +16,12 @@ class AnswerResource extends JsonResource
     {
         $ressource = [
             'id' => $this->id,
-            'question' => $this->question()->text,
-            'answer' => ''
+            'question' => $this->question->text,
         ];
 
-        switch ($this->question()->type) {
+        switch ($this->question->type) {
             case 'A':
-                $ressource['answer'] = $this->choice()->text;
+                $ressource['answer'] = $this->choice->text;
                 break;
             case 'B':
                 $ressource['answer'] = $this->B_type;
