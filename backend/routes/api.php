@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/test/{page}', [AnswerController::class,'all']);
+Route::post('/sondage', [SurveyController::class,'store']);
+Route::post('/question', [QuestionController::class,'store']);
+
+// si la route demandée n'existe pas , retourner une erreur 404
+Route::fallback(function(){
+    return response()->json([
+        'success' => false,
+        'message' => 'page introuvable',
+    ], 404);
+});

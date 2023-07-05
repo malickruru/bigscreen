@@ -48,7 +48,9 @@ class Handler extends ExceptionHandler
             // cette erreur se produit lorsque la validation échoue
             }else if ($exception instanceof ValidationException) {
                 return $this->sendErrorResponse($exception->getMessage(),422);
-            } 
+            }else if ($exception instanceof QueryException) {
+                return $this->sendErrorResponse($exception->getMessage(),500);
+            }  
 
         // retour d'erreur par défaut
         return parent::render($request, $exception);
