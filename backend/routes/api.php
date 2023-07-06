@@ -26,10 +26,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/sondage', [SurveyController::class,'store']);
 Route::post('/question', [QuestionController::class,'store']);
 
+Route::post('/login', [UserController::class,'login']);
+Route::post('/logout', [UserController::class,'logout']);
 // si la route demandée n'existe pas , retourner une erreur 404
 Route::fallback(function(){
     return response()->json([
         'success' => false,
         'message' => 'page introuvable',
     ], 404);
+});
+
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    // route nécessitant d'être admin
+    Route::group(['middleware' => ['admin']], function () {
+        Route::post('/question/list', [QuestionController::class,'all']);
+    });
 });
