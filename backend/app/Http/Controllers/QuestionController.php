@@ -13,42 +13,10 @@ class QuestionController extends Controller
 {
     use ApiResponseTrait;
 
-    /**
-     * Cette methode retourne toutes les questions d'un sondage lorsqu'un client prévois d'y répondre
-     * 
-     * @param
-     * email du sondé
-     * id du sondage voulu
-     */
-    public function trySurvey(Request $request){
-        // 1. vérifier si l'email n'a pas déja répondu au sondage
-            // 1a. valider les données
-            $request->validate([
-                'email' => 'required|email',
-                'survey_id' => 'required'
-            ]);
-            // 1b.si l'email existe pas dans la base de données donc l'utilisateur n'a jamais participé au sondage
-            $user = User::where('email', $request->email)->first();
-            $survey = Survey::findOrFail($request->survey_id);
-
-            if (!$user) {
-                return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
-            }
-
-            // 1c. si l'utilisateur existe déja dans la base et qu'il n'ya pas de relation entre lui et le sondage , cela signifie qu'il n'ya pas participé
-            $hasRelation = $user->surveys()->where('survey_id', $request->survey_id)->exists();
-            if (!$hasRelation) {
-                return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
-            }
-        
-        
-            // refuser l'accès au sondage
-        return $this->sendErrorResponse('vous avez déja répondu au sondage',401);
-    }
-
+   
 
     /**
-     * Cette methode retourne toutes les questions d'un sondage à l'administrateur en lecture seul
+     * Cette methode retourne toutes les questions d'un sondage 
      * 
      * @param
      * id du sondage voulu

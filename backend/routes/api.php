@@ -24,7 +24,7 @@ Route::post('/login', [UserController::class,'login']);
 Route::post('/login_admin', [UserController::class,'login']);
 Route::post('/logout', [UserController::class,'logout']);
 // * question
-Route::post('/try_survey', [QuestionController::class,'trySurvey']);
+Route::get('/question/list/{id}', [QuestionController::class,'index']);
 // * answer
 Route::post('/answer/add', [AnswerController::class,'store']);
 Route::post('/answer/list_by_user', [AnswerController::class,'answersByUser']);
@@ -42,7 +42,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/survey/edit/{id}', [SurveyController::class,'update']);
         Route::get('/survey/delete/{id}', [SurveyController::class,'destroy']);
         // * question
-        Route::get('/question/list/{id}', [QuestionController::class,'index']);
         Route::post('/question/add', [QuestionController::class,'store']);
         Route::get('/question/delete/{id}', [QuestionController::class,'destroy']);
         // * answer 
