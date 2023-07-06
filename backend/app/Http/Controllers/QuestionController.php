@@ -53,8 +53,8 @@ class QuestionController extends Controller
      * @param
      * id du sondage voulu
      */
-    public function all(Request $request){
-        $survey = Survey::findOrFail($request->survey_id);
+    public function index(int $id){
+        $survey = Survey::findOrFail($id);
         return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
     }
 

@@ -18,31 +18,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// routes public
+// * user
+Route::post('/login', [UserController::class,'login']);
+Route::post('/login_admin', [UserController::class,'login']);
+Route::post('/logout', [UserController::class,'logout']);
+// * question
+Route::post('/try_survey', [QuestionController::class,'trySurvey']);
+// * answer
+Route::post('/answer/add', [AnswerController::class,'store']);
+Route::post('/answer/list_by_user', [AnswerController::class,'answersByUser']);
+
+
+
+// routes privé
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    // route nécessitant d'être admin
+    Route::group(['middleware' => ['admin']], function () {
+        // * survey
+        Route::get('/survey/list', [SurveyController::class,'index']);
+        Route::post('/survey/add', [SurveyController::class,'store']);
+        // * question
+        Route::get('/question/list/{id}', [QuestionController::class,'index']);
+        Route::post('/question/add', [QuestionController::class,'store']);
+        // * answer 
+        Route::get('/answer/Atype_data/{id}', [AnswerController::class,'getAnswerData']);
+        Route::get('/answer/quality_data', [AnswerController::class,'radarData']);
+        Route::get('/answer/list/{page}', [AnswerController::class,'index']);
+    });
 });
 
-
-Route::post('/sondage', [SurveyController::class,'store']);
-Route::post('/question', [QuestionController::class,'store']);
-
-Route::post('/login', [UserController::class,'login']);
-Route::post('/logout', [UserController::class,'logout']);
-
-Route::post('/essayer_sondage', [QuestionController::class,'trySurvey']);
 // si la route demandée n'existe pas , retourner une erreur 404
 Route::fallback(function(){
     return response()->json([
         'success' => false,
         'message' => 'page introuvable',
     ], 404);
-});
-
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    // route nécessitant d'être admin
-    Route::group(['middleware' => ['admin']], function () {
-        Route::post('/question/list', [QuestionController::class,'all']);
-        
-    });
 });

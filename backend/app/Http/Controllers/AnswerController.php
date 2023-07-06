@@ -24,7 +24,7 @@ class AnswerController extends Controller
      * objet data avec l'id de la question en clé , la réponse en valeur
      * survey_id
      */
-    public function create(Request $request){
+    public function store(Request $request){
         
         $request->validate([
             'email' => 'required|email',
@@ -90,8 +90,8 @@ class AnswerController extends Controller
      * @param
      * question_id
      */
-    public function getAnswerData(Request $request){
-        $question = Question::findOrFail($request->question_id);
+    public function getAnswerData(int $id){
+        $question = Question::findOrFail($id);
         if($question->type != 'A'){
             return $this->sendErrorResponse('Ce n\'est pas une question de type A', 404);
         }
@@ -138,7 +138,7 @@ class AnswerController extends Controller
      * page demandé
      * 
      */
-    public function all(int $page){
+    public function index(int $page){
         $data = [];
 
         $totalCount = User::count();
@@ -150,6 +150,8 @@ class AnswerController extends Controller
             array_push($data , [$user->email => AnswerResource::collection($user->answers)]);
         }
 
+        $data['totalPages'] = $totalPages;
+        
         return $this->sendSuccessResponse($data);
     }
 }
