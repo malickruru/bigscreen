@@ -28,6 +28,8 @@ Route::post('/question', [QuestionController::class,'store']);
 
 Route::post('/login', [UserController::class,'login']);
 Route::post('/logout', [UserController::class,'logout']);
+
+Route::post('/essayer_sondage', [QuestionController::class,'trySurvey']);
 // si la route demandée n'existe pas , retourner une erreur 404
 Route::fallback(function(){
     return response()->json([
@@ -41,5 +43,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // route nécessitant d'être admin
     Route::group(['middleware' => ['admin']], function () {
         Route::post('/question/list', [QuestionController::class,'all']);
+        
     });
 });
