@@ -3,9 +3,14 @@ import { Outlet } from 'react-router-dom';
 
 const CustomerLayout = () => {
     return (
-        <><div>
+        <>
+        <div>
+        <h1>
             nav
-        </div><Outlet /></>
+            </h1>
+        </div>
+        <Outlet />
+        </>
     );
 }
 
