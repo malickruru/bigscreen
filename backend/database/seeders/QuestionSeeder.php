@@ -17,7 +17,7 @@ class QuestionSeeder extends Seeder
             [
                 'corps' => 'Votre adresse mail ?',
                 'type' => 'B',
-                'critère étudié' => null,
+                'critère étudié' => 'email',
             ],
             [
                 'corps' => 'Votre âge ?',

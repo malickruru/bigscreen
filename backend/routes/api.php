@@ -38,9 +38,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // * survey
         Route::get('/survey/list', [SurveyController::class,'index']);
         Route::post('/survey/add', [SurveyController::class,'store']);
+        Route::get('/release_survey/{id}', [SurveyController::class,'releaseSurvey']);
+        Route::post('/survey/edit/{id}', [SurveyController::class,'update']);
+        Route::get('/survey/delete/{id}', [SurveyController::class,'destroy']);
         // * question
         Route::get('/question/list/{id}', [QuestionController::class,'index']);
         Route::post('/question/add', [QuestionController::class,'store']);
+        Route::get('/question/delete/{id}', [QuestionController::class,'destroy']);
         // * answer 
         Route::get('/answer/Atype_data/{id}', [AnswerController::class,'getAnswerData']);
         Route::get('/answer/quality_data', [AnswerController::class,'radarData']);

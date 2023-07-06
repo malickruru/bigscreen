@@ -81,4 +81,17 @@ class QuestionController extends Controller
 
         return $this->sendSuccessResponse(new QuestionResource($question),'La question a été créée avec succès.'); 
     }
+
+    /**
+     * Méthode  pour supprimer une  question :
+     */
+    public function destroy(int $id)
+    {
+        $question =  Question::findOrFail($id);
+        if ($question->survey->isOnline) {
+            return $this->sendErrorResponse('un sondage en production ne peut pas être modifié , ses questions non plus.',403); 
+        }
+        $question->delete();
+        return $this->sendSuccessResponse(new QuestionResource($question),'La question a été suprimmer avec succès.'); 
+    }
 }

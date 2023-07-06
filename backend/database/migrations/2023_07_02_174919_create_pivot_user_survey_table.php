@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pivot_user_survey', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('survey_id')->references('id')->on('surveys');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('survey_id')->references('id')->on('surveys')->onDelete('cascade');
             $table->timestamps();
         });
     }

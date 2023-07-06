@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('choices', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->string('text');
-            $table->timestamps();
+        Schema::table('surveys', function (Blueprint $table) {
+            $table->boolean('isOnline')->default(false);
         });
     }
 
@@ -24,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('choices');
+        //
     }
 };

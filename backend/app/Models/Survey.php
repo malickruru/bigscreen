@@ -12,6 +12,7 @@ class Survey extends Model
     protected $fillable = [
         'title',
         'description',
+        'isOnline',
     ];
 
     /**

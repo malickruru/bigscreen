@@ -100,7 +100,7 @@ class AnswerController extends Controller
 
     /**
      * récuperer les notes moyenne des questions de type qualité 
-     * pour établir un graph de type radar
+     * pour établir un graphe de type radar
      * (id 11 à 15)
      */
     public function radarData(){
@@ -110,9 +110,7 @@ class AnswerController extends Controller
         $label = [];
         // tableau des données
         $data = [];
-        // pour chaque questions, calculé sa note moyenne et  retourner son pourcentage
-        // e.g une note de 2.5/5 devient 50%
-
+        // pour chaque questions, calculer sa note moyenne 
         foreach ($question as $item) {
             array_push($label,$item->yardstick);
             
@@ -121,8 +119,8 @@ class AnswerController extends Controller
             });
             // calculer la moyenne
             $average = collect($rating_array)->avg();
-            // retourner le pourcentage
-            array_push($data,round(($average*100)/5));
+            // ajouter la moyenne au donnée
+            array_push($data,round($average,2));
         }
 
         return $this->sendSuccessResponse([
