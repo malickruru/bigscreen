@@ -18,19 +18,14 @@ class AnswerResource extends JsonResource
             'id' => $this->id,
             'question' => $this->question->text,
         ];
-
-        switch ($this->question->type) {
-            case 'A':
-                $ressource['answer'] = $this->choice->text;
-                break;
-            case 'B':
-                $ressource['answer'] = $this->B_type;
-                break;
-            default:
-                $ressource['answer'] = $this->C_type;
-                break;
+        
+        if ($this->question->type == 'A') {
+            $ressource['answer'] = $this->choice->text;
+        }else{
+            $ressource['answer'] = $this->answer_value;
         }
 
+        
         return $ressource;
     }
 }

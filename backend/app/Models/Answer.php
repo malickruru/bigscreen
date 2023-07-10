@@ -12,9 +12,7 @@ class Answer extends Model
     protected $fillable = [
         'question_id',
         'user_id',
-        'A_type',
-        'B_type',
-        'C_type'
+        'answer_value'
     ];
 
     /**
@@ -31,6 +29,9 @@ class Answer extends Model
      */
 
     public function choice(){
-        return $this->hasOne(Choice::class,'id','A_type');
+        if ($this->question->type == 'A') {
+            return $this->hasOne(Choice::class,'id','answer_value');
+        }
+        return null;
     }
 }

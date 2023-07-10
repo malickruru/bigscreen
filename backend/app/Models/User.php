@@ -76,6 +76,9 @@ class User extends Authenticatable
      */
 
      public function answersBySurvey($survey_id){
-        return $this->hasMany(Answer::class)->get()->where('survey_id','=', $survey_id);
+        $questions = Survey::findOrFail($survey_id)->questions->map(function ($question){
+            return $question->id;
+        });
+        return $this->hasMany(Answer::class)->whereIn('question_id',$questions)->get();
     }
 }

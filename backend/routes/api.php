@@ -4,7 +4,6 @@ use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +26,7 @@ Route::post('/logout', [UserController::class,'logout']);
 Route::get('/question/list/{id}', [QuestionController::class,'index']);
 // * answer
 Route::post('/answer/add', [AnswerController::class,'store']);
-Route::post('/answer/list_by_user', [AnswerController::class,'answersByUser']);
-
-
+Route::get('/answers/{encoded}', [AnswerController::class,'answersByUserAndSurvey']);
 
 // routes privé
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -47,7 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // * answer 
         Route::get('/answer/Atype_data/{id}', [AnswerController::class,'getAnswerData']);
         Route::get('/answer/quality_data', [AnswerController::class,'radarData']);
-        Route::get('/answer/list/{page}', [AnswerController::class,'index']);
+        Route::get('/survey/{surveyId}/answers/{page}', [AnswerController::class,'index']);
     });
 });
 

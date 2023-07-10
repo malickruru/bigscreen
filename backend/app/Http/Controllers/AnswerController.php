@@ -8,6 +8,7 @@ use App\Http\Traits\ApiResponseTrait;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\User;
+use App\Models\UserSurvey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,19 +32,20 @@ class AnswerController extends Controller
             'data' => 'array',
             'survey_id' => 'required'
         ]);
+
         $user = User::where('email', $request->email)->first();
         // inserer l'utilistateur dans la bd si il n'existe pas
         if (!$user) {
             $user = User::create([
-                'name' => '',
                 'email' => $request->email,
-                'password' => Hash::make('password'),
                 'role_id' => 2,
+                
             ]);
         }else{
             $hasRelation = $user->surveys()->where('survey_id', $request->survey_id)->exists();
             if ($hasRelation) {
-                return $this->sendErrorResponse('vous avez déja répondu au sondage',401);
+                $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$request->survey_id]])->get()->answer_url;
+                return $this->sendErrorResponse('vous avez déja répondu au sondage, visionner vos réponses à l\'adresse : <a href="/reponse/'.$answerUrl.'>mes_reponse</a>',401);
             }
         }
         // parcourir le tableau data et inserer une question à chaque iteration
@@ -51,37 +53,29 @@ class AnswerController extends Controller
             $answerData = [];
             $answerData['user_id'] = $user->id;
             $answerData['question_id'] = $key;
-
-            $question = Question::find($key);
-
-            switch ($question->type) {
-                case 'A':
-                    $answerData['A_type'] = $value;
-                    break;
-                case 'B':
-                    $answerData['B_type'] = $value;
-                    break;
-                default:
-                    $answerData['C_type'] = $value;
-                    break;
-            }
-
+            $answerData['answer_value'] = $value;
             Answer::create($answerData);
         }
         // lier l'utilisateur et le sondage
-        $user->surveys()->attach($request->survey_id,['created_at' => now()]);
+        $user->surveys()->attach($request->survey_id,[
+            'created_at' => now(),
+            // pour créer des urls uniques, encoder l'email et l'id du sondage
+            //  ex : email|1
+            // la valeur de cet encodage sera passé en parametre lors qu'un utilisateur voudra récupérer ses réponses
+            'answer_url' => base64_encode($user->email.'|'.$request->survey_id)
+        ]);
 
         return $this->sendSuccessResponse(AnswerResource::collection($user->answers) );
     }
 
     /**
-     * lister les réponses de l'utilisateur 
+     * lister les réponses de l'utilisateur pour un sondage
      * @param
      * email
      */
-    public function answersByUser(Request $request){
-        $user = User::where('email', $request->email)->first();
-        return $this->sendSuccessResponse(AnswerResource::collection($user->answers) );
+    public function answersByUserAndSurvey(string $encoded){
+        $answers = UserSurvey::where('answer_url','=',$encoded)->first()->answersByUserAndSurvey();
+        return $this->sendSuccessResponse(AnswerResource::collection($answers) );
     }
 
     /**
@@ -115,7 +109,7 @@ class AnswerController extends Controller
             array_push($label,$item->yardstick);
             
             $rating_array = $item->answers->map(function ($answer){
-                return $answer->C_type ;
+                return $answer->answer_value;
             });
             // calculer la moyenne
             $average = collect($rating_array)->avg();
@@ -136,7 +130,7 @@ class AnswerController extends Controller
      * page demandé
      * 
      */
-    public function index(int $page){
+    public function index(int $surveyId ,int $page){
         $data = [];
 
         $totalCount = User::count();
@@ -145,7 +139,7 @@ class AnswerController extends Controller
         $users = User::all()->skip(($page - 1) * 5)->take(5);
 
         foreach ($users as $user) {
-            array_push($data , [$user->email => AnswerResource::collection($user->answers)]);
+            array_push($data , [$user->email => AnswerResource::collection($user->answersBySurvey($surveyId))]);
         }
 
         $data['totalPages'] = $totalPages;

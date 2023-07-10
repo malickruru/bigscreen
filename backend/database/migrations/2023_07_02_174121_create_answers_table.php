@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->unsignedBigInteger('A_type')->nullable();
-            $table->foreign('A_type')->references('id')->on('choices');
-            $table->string('B_type')->nullable();
-            $table->integer('C_type')->nullable();
+            $table->string('answer_value');
             $table->timestamps();
         });
     }

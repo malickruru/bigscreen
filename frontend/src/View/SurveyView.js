@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import Question from '../Components/Question';
+import { useLoaderData } from "react-router-dom"
 
 const SurveyView = () => {
-    const [id, setid] = useState(0);
+    const [current, setCurrent] = useState(0);
+    const [data, setData] = useState({});
 
-    const [questions, setquestions] = useState([
-        {
-            text : 'Votre email ?',
-            yardstick : 'email',
-            type: 'B'
+    const  questions = useLoaderData();
+
+    const NextQuestion = (out) => {
+        if(current < questions.length - 1 ){
+            setData({...data , [questions[current].id]: out, })
+            setCurrent(current + 1)
+            console.log(data);
         }
-    ]);
-
-    const [reponse, setreponse] = useState({
-        email : ''
-    });
+    }
 
 
 
     return (
         <div className="container mx-auto p-5 mt-14 flex justify-center
          items-center flex-col">
-            <Question  id={id + 1} text={questions[id].text} yardstick={questions[id].yardstick} type={questions[id].type}/>
+            <Question key={current + 1} question={questions[current]}  next={NextQuestion}  />
+                
         </div>
-       
-        
     );
 }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\ApiResponseTrait;
+use App\Models\Question;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,15 @@ class SurveyController extends Controller
         $survey->title = $request->title;
         $survey->description = $request->description;
         $survey->save();
+
+        // par convention tous les sondages demanderont le mail de l'utilisateur ,
+        // donc créer automatiquement une question pour le mail (cette question ne pourras pas être supprimé)
+        $question = new Question();
+        $question->survey_id = $survey->id;
+        $question->text = 'Votre adresse mail ?';
+        $question->yardstick = 'email';
+        $question->type = 'B';
+        $question->save();
 
         return $this->sendSuccessResponse($survey,'Le sondage a été créé avec succès.'); 
     }

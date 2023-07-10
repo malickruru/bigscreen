@@ -6,7 +6,6 @@ use App\Http\Resources\QuestionResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Question;
 use App\Models\Survey;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -58,6 +57,9 @@ class QuestionController extends Controller
         $question =  Question::findOrFail($id);
         if ($question->survey->isOnline) {
             return $this->sendErrorResponse('un sondage en production ne peut pas être modifié , ses questions non plus.',403); 
+        }
+        if ($question->yardstick == 'email') {
+            return $this->sendErrorResponse('Cette question est obligatoire pour tous les sondages , suppression impossible',403); 
         }
         $question->delete();
         return $this->sendSuccessResponse(new QuestionResource($question),'La question a été suprimmer avec succès.'); 

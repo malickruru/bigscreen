@@ -77,6 +77,5 @@ class Post extends ApiRequest {
 export {
     Get,
     Post,
-    Put,
-    Delete
+   
 }

@@ -21,7 +21,7 @@ class DataResource extends JsonResource
     public function toArray(Request $request): array
     {
         $counts = collect($this->answers)->countBy(function ($item) {
-            return $item->A_type;
+            return $item->answer_value;
         });
 
         return [

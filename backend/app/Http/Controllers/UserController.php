@@ -17,7 +17,7 @@ class UserController extends Controller
      * email 
      * password
      */
-    public function loginAdmin(Request $request)
+    public function login(Request $request)
     {
         if(!Auth::attempt($request->only(['email', 'password']))){
             return $this->sendErrorResponse('accès incorrect',401);
@@ -31,15 +31,7 @@ class UserController extends Controller
         }
     }
 
-    public function login(Request $request)
-    {
-        if(!Auth::attempt($request->only(['email', 'password']))){
-            return $this->sendErrorResponse('accès incorrect',401);
-        } else{
-            $user = User::where('email', $request->email)->first();
-            return $this->sendSuccessResponse(['token' => $user->createToken('API')->plainTextToken],'Connexion réussit');
-        }
-    }
+    
 
     /**
      * Déconnexion

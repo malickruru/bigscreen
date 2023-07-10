@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('survey_id')->references('id')->on('surveys')->onDelete('cascade');
+            $table->string('answer_url')->unique(); //représente la valeur hasher de l'email + du survey id ,sert à créer des urls de réponses uniques 
             $table->timestamps();
         });
     }

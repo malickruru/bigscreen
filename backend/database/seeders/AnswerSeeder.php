@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AnswerSeeder extends Seeder
 {
@@ -21,40 +22,28 @@ class AnswerSeeder extends Seeder
             switch ($question->type) {
                 case 'A':
                     return [
-                        'A_type' => $question->choices()->get()->random()->id,
-                        'B_type' => null,
-                        'C_type' => null,
+                        'answer_value' => $question->choices()->get()->random()->id,
                     ];
                 case 'C':
                     return [
-                        'A_type' => null,
-                        'B_type' => null,
-                        'C_type' => collect([1,2,3,4,5])->random(),
+                        'answer_value' => collect([1,2,3,4,5])->random(),
                     ];
                 default:
-                    if ($question->text == 'Votre adresse mail ?') {
+                    if ($question->yardstick == 'email') {
                         return [
-                            'A_type' => null,
-                            'B_type' => $user->email,
-                            'C_type' => null,
+                            'answer_value' => $user->email,
                         ];
                     }else if($question->yardstick == 'âge'){
                         return [
-                            'A_type' => null,
-                            'B_type' => rand(18, 65),
-                            'C_type' => null,
+                            'answer_value' => rand(18, 65),
                         ];
                     }else if($question->yardstick == 'profession'){
                         return [
-                            'A_type' => null,
-                            'B_type' => fake()->jobTitle,
-                            'C_type' => null,
+                            'answer_value' => fake()->jobTitle,
                         ];
                     }else if($question->yardstick == 'Besoins future'){
                         return [
-                            'A_type' => null,
-                            'B_type' => fake()->sentence(),
-                            'C_type' => null,
+                            'answer_value' => fake()->sentence(),
                         ];
                     }
                 
@@ -71,7 +60,13 @@ class AnswerSeeder extends Seeder
                 );
             }
             
-            $customer->surveys()->attach(1,['created_at' => now()]);
+            $customer->surveys()->attach(1,[
+                'created_at' => now(),
+                // pour créer des urls uniques, encoder l'email et l'id du sondage
+                //  ex : email|1
+                // la valeur de cet encodage sera passé en parametre lors qu'un utilisateur voudra récupérer ses réponses
+                'answer_url' => base64_encode($customer->email.'|'.'1')
+            ]);
         }); 
 
     }

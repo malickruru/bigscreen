@@ -18,6 +18,7 @@ class SurveySeeder extends Seeder
         $survey->description = 'Afin de préparer la prochaine itération de leur application, l’entreprise Bigscreen désire collecter
         des informations de la part de ses utilisateurs via un sondage en ligne.
         ';
+        $survey->isOnline = true;
         $survey->save();
     }
 }
