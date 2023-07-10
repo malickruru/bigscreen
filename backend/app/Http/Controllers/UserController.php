@@ -30,9 +30,7 @@ class UserController extends Controller
             }
         }
     }
-
     
-
     /**
      * Déconnexion
      * 

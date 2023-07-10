@@ -20,7 +20,7 @@ const SurveyView = () => {
 
     return (
         <div className="container mx-auto p-5 mt-14 flex justify-center
-         items-center flex-col">
+         items-center flex-col h-screen">
             <Question key={current + 1} question={questions[current]}  next={NextQuestion}  />
                 
         </div>

@@ -6,7 +6,7 @@ class ApiRequest {
     constructor(isPublic, url, method, HasBody) {
         this.isPublic = isPublic; // la requête necessite t'elle une authentification ?
         this.method = method; // méthode de la requête 
-        this.url = "http://127.0.0.1:8000/api" + url; // url de la requête
+        this.url =  url; // url de la requête
         this.HasBody = HasBody; // les paramètres requête necessitent t'ils une une propriété body  ?
         this.bodyContent = {} // corps de la requête (vide par défaut)
     }
@@ -42,13 +42,23 @@ class ApiRequest {
         return option
     }
 
-    async getResponse(UrlParams = "", bodyContent = {}) {
+    finalUrl(param){
+        let urlArray = this.url.split('/');
+        let mappedArray = urlArray.map((item) => {
+            if(item[0] == ':'){
+                return param[item.slice(1)]
+            }
+            return item
+        })
+        return "http://127.0.0.1:8000/api"+mappedArray.join('/')
+    }
+
+    async getResponse(UrlParams = {}, bodyContent = {}) {
         //retourne une réponse au format json
         // si url UrlParams et/ou bodyContent ne sont pas vide , modifier les informations
-        // de la requête
-        let finalUrl = this.url + UrlParams
+        // de la requête 
         this.bodyContent = bodyContent
-        let response = await fetch(finalUrl, this.requestOptions());
+        let response = await fetch(this.finalUrl(UrlParams), this.requestOptions());
         return response.json();
     }
 }

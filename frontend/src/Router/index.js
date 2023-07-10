@@ -5,27 +5,27 @@ import AnswerView from '../View/AnswerView.js';
 import { listQuestion } from '../Services/Route';
 
 
+
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <CustomerLayout />,
-      children: [
-        {
-          path: "/sondage",
-          element : <SurveyView />,
-          loader : async () => {
-            let res = await listQuestion.getResponse("1")
-            return res.data
-          }
-        //   lazy : () => import('../View/SurveyView.js')
-        },
-        {
-            path: "reponse",
-            element : <AnswerView />,
-            // lazy : () => import('../View/AnswerView.js')
-          }
-      ],
-    },
-  ]);
+  {
+    path: "/",
+    element: <CustomerLayout />,
+    children: [
+      {
+        path: "/sondage/:id",
+        element: <SurveyView />,
+        loader: async ({ params }) => {
+          let res = await listQuestion.getResponse({'id' : params.id})
+          return res.data
+        }
+
+      },
+      {
+        path: "/reponse",
+        element: <AnswerView />,
+      }
+    ],
+  },
+]);
 
 export default router

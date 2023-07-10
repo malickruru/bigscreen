@@ -20,32 +20,28 @@ use Illuminate\Support\Facades\Route;
 // routes public
 // * user
 Route::post('/login', [UserController::class,'login']);
-Route::post('/login_admin', [UserController::class,'login']);
 Route::post('/logout', [UserController::class,'logout']);
 // * question
-Route::get('/question/list/{id}', [QuestionController::class,'index']);
+Route::get('/survey/{id}/questions', [QuestionController::class,'index']);
 // * answer
-Route::post('/answer/add', [AnswerController::class,'store']);
+Route::post('/answers', [AnswerController::class,'store']);
 Route::get('/answers/{encoded}', [AnswerController::class,'answersByUserAndSurvey']);
 
 // routes privé
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    // route nécessitant d'être admin
-    Route::group(['middleware' => ['admin']], function () {
         // * survey
-        Route::get('/survey/list', [SurveyController::class,'index']);
-        Route::post('/survey/add', [SurveyController::class,'store']);
-        Route::get('/release_survey/{id}', [SurveyController::class,'releaseSurvey']);
-        Route::post('/survey/edit/{id}', [SurveyController::class,'update']);
-        Route::get('/survey/delete/{id}', [SurveyController::class,'destroy']);
+        Route::get('/surveys', [SurveyController::class,'index']);
+        Route::post('/survey', [SurveyController::class,'store']);
+        Route::get('/survey/{id}/release', [SurveyController::class,'releaseSurvey']);
+        Route::post('/survey/{id}/update', [SurveyController::class,'update']);
+        Route::get('/survey/{id}/delete', [SurveyController::class,'destroy']);
         // * question
-        Route::post('/question/add', [QuestionController::class,'store']);
-        Route::get('/question/delete/{id}', [QuestionController::class,'destroy']);
+        Route::post('/question', [QuestionController::class,'store']);
+        Route::get('/question/{id}/delete', [QuestionController::class,'destroy']);
         // * answer 
-        Route::get('/answer/Atype_data/{id}', [AnswerController::class,'getAnswerData']);
+        Route::get('/answer/{id}/Atype_data', [AnswerController::class,'getAnswerData']);
         Route::get('/answer/quality_data', [AnswerController::class,'radarData']);
         Route::get('/survey/{surveyId}/answers/{page}', [AnswerController::class,'index']);
-    });
 });
 
 // si la route demandée n'existe pas , retourner une erreur 404

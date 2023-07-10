@@ -21,7 +21,7 @@ const AnswerType = ({ question , next }) => {
                 </div> ))
         default:
             return <>
-            <input ref={input} type="text"  placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-3xl border-b-2 border-solid' />
+            <input ref={input} type="text"  placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-xl border-b-2 border-solid' />
             <div className=' mt-4'>
                 <button onClick={() => {next(input.current.value)}}  className="  btn-square bg-white text-black hover:bg-base-content mr-3">OK</button>
                 <span className='italic'>Appuyer sur entrer</span>

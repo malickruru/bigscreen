@@ -6,23 +6,22 @@ import { Get, Post} from "./ApiRequest";
 
 // User
 let login = new Post(true,'/login');
-let loginAdmin = new Post(true,'/login_admin');
 let logout = new Post(true,'/logout');
 // question
-let listQuestion = new Get(true,'/question/list/');
-let addQuestion = new Post(false,'/question/add');
-let deleteQuestion = new Get(false,'/question/delete/');
+let listQuestion = new Get(true,'/survey/:id/questions');
+let addQuestion = new Post(false,'/question');
+let deleteQuestion = new Get(false,'/question/:id/delete');
 // answer
-let addAnswer = new Post(true,'/answer/add');
-let listAnswerByUser = new Post(true,'/answer/list_by_user');
-let AtypeData = new Get(false,'/answer/Atype_data/');
+let addAnswer = new Post(true,'/answers');
+let listAnswerByUser = new Post(true,'/answers/:encoded');
+let AtypeData = new Get(false,'/answer/:id/Atype_data');
 let qualityData = new Get(false,'/answer/quality_data');
-let listAnswer = new Get(false,'/answer/list/');
+let listAnswer = new Get(false,'/survey/:surveyId/answers/:page');
 // survey
-let listSurvey = new Get(false,'/survey/list');
-let addSurvey = new Post(false,'/survey/add');
-let releaseSurvey = new Get(false,'/release_survey/');
-let editSurvey = new Post(false,'/survey/edit/');
-let deleteSurvey = new Get(false,'/survey/delete/');
+let listSurvey = new Get(false,'/surveys');
+let addSurvey = new Post(false,'/survey');
+let releaseSurvey = new Get(false,'/survey/:id/release');
+let editSurvey = new Post(false,'/survey/:id/update');
+let deleteSurvey = new Get(false,'/survey/:id/delete');
 
-export { login, loginAdmin, logout,  listQuestion, addQuestion, deleteQuestion, addAnswer, listAnswerByUser, AtypeData, qualityData, listAnswer, listSurvey, addSurvey, releaseSurvey, editSurvey, deleteSurvey }
+export { login, logout,  listQuestion, addQuestion, deleteQuestion, addAnswer, listAnswerByUser, AtypeData, qualityData, listAnswer, listSurvey, addSurvey, releaseSurvey, editSurvey, deleteSurvey }

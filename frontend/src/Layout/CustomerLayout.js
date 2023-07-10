@@ -5,9 +5,8 @@ import {ReactComponent as BigScreenLogo} from '../Assets/Images/BigScreenLogo.sv
 const CustomerLayout = () => {
     return (
         <>
-            <div className="navbar p-5 ">
+            <div className="navbar p-5 absolute top-0">
                 <BigScreenLogo fill="#fff" width={300}/>
-                {/* <a className="btn btn-ghost normal-case text-xl">daisyUI</a> */}
             </div>
             <Outlet />
             
