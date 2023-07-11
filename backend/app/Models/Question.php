@@ -13,7 +13,8 @@ class Question extends Model
         'survey_id',
         'text',
         'type',
-        'yardstick'
+        'yardstick',
+        'validateAs'
     ];
 
     /**

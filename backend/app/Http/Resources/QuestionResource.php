@@ -21,6 +21,7 @@ class QuestionResource extends JsonResource
             'text' => $this->text,
             'type' => $this->type,
             'yardstick' => $this->yardstick,
+            'validateAs' => $this->validateAs,
         ];
 
         if($this->type == 'A'){

@@ -1,10 +1,12 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 
 const AnswerView = () => {
+    const answers = useLoaderData()
     return (
-        <div>
-            reponse
-        </div>
+        answers.map((answer) => {
+            return <p>{answer.question} :  {answer.answer}</p>
+        })
     );
 }
 

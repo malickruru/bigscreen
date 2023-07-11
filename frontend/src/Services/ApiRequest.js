@@ -3,20 +3,18 @@
 
 class ApiRequest {
 
-    constructor(isPublic, url, method, HasBody) {
+    constructor(isPublic, url, method, HasBody,header = []) {
         this.isPublic = isPublic; // la requête necessite t'elle une authentification ?
         this.method = method; // méthode de la requête 
         this.url =  url; // url de la requête
         this.HasBody = HasBody; // les paramètres requête necessitent t'ils une une propriété body  ?
         this.bodyContent = {} // corps de la requête (vide par défaut)
+        this.header = header
     }
 
     // cette méthode retourne les entêtes 
-    getHeaders(){
-        let headers = new Headers();
-        headers.append("Authorization", "Bearer " + localStorage.getItem("BigScreenToken"));
-        return headers
-    }
+
+
 
     // cette méthode retourne le corps
     getBody() {
@@ -27,8 +25,12 @@ class ApiRequest {
     requestOptions() {
         let option = {}
         //header
+        option.headers = new Headers()
         if (!this.isPublic) {
-            option.headers = this.getHeaders();
+            option.headers.append("Authorization", "Bearer " + localStorage.getItem("BigScreenToken"));
+        }
+        if(this.header.includes('JSON')){
+            option.headers.append("Content-Type", "application/json");
         }
         // method
         option.method = this.method;
@@ -73,10 +75,10 @@ class Get extends ApiRequest {
 // méthode de type POST 
 class Post extends ApiRequest {
     constructor(isPublic, url) {
-        super(isPublic, url, 'POST', true)
+        super(isPublic, url, 'POST', true , ['JSON'])
     }
 
-    // le corp de la requête est de type formData
+    // le corp de la requête est de type JSON
     getBody() {
         return JSON.stringify(this.bodyContent);;
     }
@@ -87,5 +89,4 @@ class Post extends ApiRequest {
 export {
     Get,
     Post,
-   
 }

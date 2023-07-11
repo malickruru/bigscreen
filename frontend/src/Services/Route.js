@@ -13,7 +13,7 @@ let addQuestion = new Post(false,'/question');
 let deleteQuestion = new Get(false,'/question/:id/delete');
 // answer
 let addAnswer = new Post(true,'/answers');
-let listAnswerByUser = new Post(true,'/answers/:encoded');
+let listAnswerByUser = new Get(true,'/answers/:encoded');
 let AtypeData = new Get(false,'/answer/:id/Atype_data');
 let qualityData = new Get(false,'/answer/quality_data');
 let listAnswer = new Get(false,'/survey/:surveyId/answers/:page');

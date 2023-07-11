@@ -44,8 +44,8 @@ class AnswerController extends Controller
         }else{
             $hasRelation = $user->surveys()->where('survey_id', $request->survey_id)->exists();
             if ($hasRelation) {
-                $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$request->survey_id]])->get()->answer_url;
-                return $this->sendErrorResponse('vous avez déja répondu au sondage, visionner vos réponses à l\'adresse : <a href="/reponse/'.$answerUrl.'>mes_reponse</a>',401);
+                $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$request->survey_id]])->first()->answer_url;
+                return $this->sendSuccessResponse(['link'  => 'reponse/'.$answerUrl],'vous avez déja répondu au sondage, visionner vos réponses à l\'adresse : ');
             }
         }
         // parcourir le tableau data et inserer une question à chaque iteration
@@ -56,16 +56,21 @@ class AnswerController extends Controller
             $answerData['answer_value'] = $value;
             Answer::create($answerData);
         }
+        $answer_url = base64_encode($user->email.'|'.$request->survey_id);
         // lier l'utilisateur et le sondage
         $user->surveys()->attach($request->survey_id,[
             'created_at' => now(),
             // pour créer des urls uniques, encoder l'email et l'id du sondage
             //  ex : email|1
             // la valeur de cet encodage sera passé en parametre lors qu'un utilisateur voudra récupérer ses réponses
-            'answer_url' => base64_encode($user->email.'|'.$request->survey_id)
+            'answer_url' => $answer_url
         ]);
 
-        return $this->sendSuccessResponse(AnswerResource::collection($user->answers) );
+        return $this->sendSuccessResponse(['link'  => 'reponse/'.$answer_url],'Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
+        votre investissement, nous vous préparons une application toujours plus facile
+        à utiliser, seul ou en famille.
+        Si vous désirez consulter vos réponses ultérieurement, vous pouvez consultez
+        cette adresse: ');
     }
 
     /**

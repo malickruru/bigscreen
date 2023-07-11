@@ -18,11 +18,13 @@ class QuestionSeeder extends Seeder
                 'corps' => 'Votre adresse mail ?',
                 'type' => 'B',
                 'critère étudié' => 'email',
+                'validateAs' => 'email'
             ],
             [
                 'corps' => 'Votre âge ?',
                 'type' => 'B',
                 'critère étudié' => 'âge',
+                'validateAs' => 'number'
             ],
             [
                 'corps' => 'Votre sexe ?',
@@ -39,6 +41,7 @@ class QuestionSeeder extends Seeder
                 'corps' => 'Votre profession ?',
                 'type' => 'B',
                 'critère étudié' => 'profession',
+                'validateAs' => 'text'
             ],
             [
                 'corps' => 'Quelle marque de casque VR utilisez-vous ?',
@@ -120,6 +123,7 @@ class QuestionSeeder extends Seeder
                 'corps' => 'Selon vous, quelle nouvelle fonctionnalité devrait exister sur Bigscreen ?',
                 'type' => 'B',
                 'critère étudié' => 'Besoins future',
+                'validateAs' => 'textarea'
             ],
         ];
 
@@ -130,6 +134,9 @@ class QuestionSeeder extends Seeder
             $data->text = $question['corps'];
             $data->type = $question['type'];
             $data->yardstick = $question['critère étudié'];
+            if(isset($question['validateAs'])){
+                $data->validateAs = $question['validateAs']; 
+            }
             $data->save();
             // si il s'agit d'une question de type A , lié l'id de la question à ces propositions dans la table choice
             if ($data->type == 'A') {

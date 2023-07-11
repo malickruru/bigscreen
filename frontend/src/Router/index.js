@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import CustomerLayout from '../Layout/CustomerLayout'
 import SurveyView from '../View/SurveyView.js';
 import AnswerView from '../View/AnswerView.js';
-import { listQuestion } from '../Services/Route';
+import { listAnswerByUser, listQuestion } from '../Services/Route';
 
 
 
@@ -21,8 +21,12 @@ const router = createBrowserRouter([
 
       },
       {
-        path: "/reponse",
+        path: "/reponse/:encoded",
         element: <AnswerView />,
+        loader: async ({ params }) => {
+          let res = await listAnswerByUser.getResponse({'encoded' : params.encoded})
+          return res.data
+        }
       }
     ],
   },
