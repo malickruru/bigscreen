@@ -19,6 +19,14 @@ class SurveyController extends Controller
     }
 
     /**
+     * Méthode "isOnline" pour afficher tous les sondages en lignes:
+     */
+    public function isOnline()
+    {
+        return $this->sendSuccessResponse(Survey::where('isOnline','=',1)->get());
+    }
+
+    /**
      * Méthode "store" pour enregistrer un nouveau sondage dans la base de données :
      */
     public function store(Request $request)

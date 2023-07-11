@@ -2,7 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import CustomerLayout from '../Layout/CustomerLayout'
 import SurveyView from '../View/SurveyView.js';
 import AnswerView from '../View/AnswerView.js';
-import { listAnswerByUser, listQuestion } from '../Services/Route';
+import { listAnswerByUser, listQuestion, onlineSurvey } from '../Services/Route';
+import HomeView from '../View/HomeView';
 
 
 
@@ -11,6 +12,15 @@ const router = createBrowserRouter([
     path: "/",
     element: <CustomerLayout />,
     children: [
+      {
+        path: "/",
+        element: <HomeView />,
+        loader: async () => {
+          let res = await onlineSurvey.getResponse()
+          return res.data
+        }
+
+      },
       {
         path: "/sondage/:id",
         element: <SurveyView />,

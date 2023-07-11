@@ -4,9 +4,31 @@ import { useLoaderData } from 'react-router-dom';
 const AnswerView = () => {
     const answers = useLoaderData()
     return (
-        answers.map((answer) => {
-            return <p>{answer.question} :  {answer.answer}</p>
-        })
+        <div className="container mx-auto  p-5 mt-24   relative">
+            {
+                answers.map((answer,key) => {
+                    return <div className='mb-16 ml-12'>
+                        <div className='flex items-center'>
+                            <div className='w-16 h-16 rounded-full bg-white text-black text-lg flex items-center justify-center'>
+                                {key + 1}
+                            </div>
+                            <div className='ml-5 p-5 h-24 w-full'>
+                                <h1 className='text-xl text-white'>
+                                    {answer.question}
+                                </h1>
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                        <div className='p-5 text-xl text-base-400'>
+                            {answer.answer}
+                        </div>
+
+                    </div>
+
+                })
+            }
+        </div>
+
     );
 }
 

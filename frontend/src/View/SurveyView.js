@@ -56,7 +56,7 @@ const SurveyView = () => {
             setData({ ...data, [questions[current].id]: out, })
             setCurrent(current + 1)
         } else {
-            submit()
+            submit(out)
         }
     }
 
@@ -67,11 +67,11 @@ const SurveyView = () => {
 
     }
 
-    const submit = async () => {
+    const submit = async (lastAnswer) => {
         setLoading(true)
         let res = await addAnswer.getResponse({}, {
             "email": email,
-            "data": data,
+            "data": { ...data, [questions[current].id]: lastAnswer},
             "survey_id": survey.id
         })
         setResult([res.message, res.data.link])

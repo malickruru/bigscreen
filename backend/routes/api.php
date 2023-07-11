@@ -26,6 +26,8 @@ Route::get('/survey/{id}/questions', [QuestionController::class,'index']);
 // * answer
 Route::post('/answers', [AnswerController::class,'store']);
 Route::get('/answers/{encoded}', [AnswerController::class,'answersByUserAndSurvey']);
+// * survey
+Route::get('/surveys/online', [SurveyController::class,'isOnline']);
 
 // routes privé
 Route::group(['middleware' => ['auth:sanctum']], function () {
