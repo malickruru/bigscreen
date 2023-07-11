@@ -2,10 +2,10 @@ import React from 'react';
 import { motion } from "framer-motion";
 
 
-const Error = ({ message }) => {
+const Error = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (
         <motion.div
-            className="alert alert-error my-4 w-1/2 absolute  top-20"
+            className={"alert alert-error my-4  absolute " + postion.join(' ') +' '+ AlertWidth.join(' ')}
             initial={{ opacity: 0, scale: 0.3 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 }}}>

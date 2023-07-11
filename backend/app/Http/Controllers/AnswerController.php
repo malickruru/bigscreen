@@ -45,7 +45,7 @@ class AnswerController extends Controller
             $hasRelation = $user->surveys()->where('survey_id', $request->survey_id)->exists();
             if ($hasRelation) {
                 $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$request->survey_id]])->first()->answer_url;
-                return $this->sendSuccessResponse(['link'  => 'reponse/'.$answerUrl],'vous avez déja répondu au sondage, visionner vos réponses à l\'adresse : ');
+                return $this->sendSuccessResponse(['link'  => 'reponse/'.$answerUrl],'vous avez déja répondu au sondage, visionnez vos réponses à l\'adresse : ');
             }
         }
         // parcourir le tableau data et inserer une question à chaque iteration
