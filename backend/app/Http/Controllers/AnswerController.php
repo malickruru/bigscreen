@@ -137,6 +137,7 @@ class AnswerController extends Controller
      */
     public function index(int $surveyId ,int $page){
         $data = [];
+        $data['answers'] = [];
 
         $totalCount = User::count();
         $totalPages = ceil($totalCount / 5); //nombre total de pages sachant qu'il ya 5 utilisateurs par page
@@ -144,7 +145,7 @@ class AnswerController extends Controller
         $users = User::all()->skip(($page - 1) * 5)->take(5);
 
         foreach ($users as $user) {
-            array_push($data , [$user->email => AnswerResource::collection($user->answersBySurvey($surveyId))]);
+            array_push($data['answers'] ,  AnswerResource::collection($user->answersBySurvey($surveyId)));
         }
 
         $data['totalPages'] = $totalPages;

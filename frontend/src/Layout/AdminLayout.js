@@ -40,7 +40,8 @@ const AdminLayout = () => {
                             </li>
                             <li className='my-2'>
                                 <NavLink
-                                    to="/administration/reponse"
+                                    to="reponse"
+                                    end
                                     className={({ isActive }) => isActive ? "bg-white text-primary text-lg" : "text-lg"}><i className="bi bi-list-check"></i>REPONSES</NavLink>
                             </li>
                             <li className='my-2'>

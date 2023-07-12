@@ -2,11 +2,12 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 import CustomerLayout from '../Layout/CustomerLayout'
 import SurveyView from '../View/SurveyView.js';
 import AnswerView from '../View/AnswerView.js';
-import { listAnswerByUser, listQuestion, login, logout, onlineSurvey } from '../Services/Route';
+import { listAnswer, listAnswerByUser, listQuestion, login, logout, onlineSurvey } from '../Services/Route';
 import HomeView from '../View/HomeView';
 import AdminLayout from '../Layout/AdminLayout';
 import LoginView from '../View/LoginView';
 import{ HomeView as HomeAdminView} from '../View/Admin/HomeView';
+import{ AnswerView as AnswerAdminView} from '../View/Admin/AnswerView';
 import QuestionView from '../View/Admin/QuestionView';
 
 
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
         element: <QuestionView/>,
         loader : async () => {
           let res = await listQuestion.getResponse({id : localStorage.getItem("BigScreenActiveSurvey") })
+          return res.data;
+        },
+      },
+      {
+        path: "reponse",
+        element: <AnswerAdminView/>,
+        loader : async () => {
+          let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : 1})
           return res.data;
         },
       },
