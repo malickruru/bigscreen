@@ -22,6 +22,9 @@ class QuestionController extends Controller
      */
     public function index(int $id){
         $survey = Survey::findOrFail($id);
+        if(!$survey->isOnline){
+            return $this->sendErrorResponse('Ce sondage n\'est pas encore mis en production',404);
+        }
         return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
     }
 

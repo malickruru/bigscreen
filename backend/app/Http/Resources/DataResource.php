@@ -25,6 +25,7 @@ class DataResource extends JsonResource
         });
 
         return [
+            'title' => $this->text,
             'labels' => collect($counts->keys())->map(function ($item){
                 return Choice::findOrFail($item)->text;
             }),
