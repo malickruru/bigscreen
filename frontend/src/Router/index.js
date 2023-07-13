@@ -2,12 +2,13 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 import CustomerLayout from '../Layout/CustomerLayout'
 import SurveyView from '../View/SurveyView.js';
 import AnswerView from '../View/AnswerView.js';
-import { listAnswer, listAnswerByUser, listQuestion, login, logout, onlineSurvey } from '../Services/Route';
+import { addSurvey, listAnswer, listAnswerByUser, listQuestion, listSurvey, login, logout, onlineSurvey } from '../Services/Route';
 import HomeView from '../View/HomeView';
 import AdminLayout from '../Layout/AdminLayout';
 import LoginView from '../View/LoginView';
 import{ HomeView as HomeAdminView} from '../View/Admin/HomeView';
 import{ AnswerView as AnswerAdminView} from '../View/Admin/AnswerView';
+import{ SurveyView as SurveyAdminView} from '../View/Admin/SurveyView';
 import QuestionView from '../View/Admin/QuestionView';
 
 
@@ -77,12 +78,33 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "reponse",
+        path: "reponse/:page",
         element: <AnswerAdminView/>,
-        loader : async () => {
-          let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : 1})
+        loader : async ({params}) => {
+          let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : params.page})
           return res.data;
         },
+      },
+      {
+        path: "sondage",
+        element: <SurveyAdminView/>,
+        loader : async () => {
+          let res = await listSurvey.getResponse()
+          return res.data;
+        },
+        action : async ({request}) => {
+          const Data = Object.fromEntries(await request.formData());
+          switch (Data.action) {
+            case 'addSurvey':
+              let res = await addSurvey.getResponse({},Data)
+              if(!res.success ){
+                return res.message
+              }
+              return redirect('../sondage')
+            default:
+              break;
+          }
+        }
       },
     ]
   },

@@ -40,13 +40,14 @@ const AdminLayout = () => {
                             </li>
                             <li className='my-2'>
                                 <NavLink
-                                    to="reponse"
-                                    end
+                                    to="reponse/1"
+                                    
                                     className={({ isActive }) => isActive ? "bg-white text-primary text-lg" : "text-lg"}><i className="bi bi-list-check"></i>REPONSES</NavLink>
                             </li>
                             <li className='my-2'>
                                 <NavLink
-                                    to="/administration/sondage"
+                                    to="sondage"
+                                    end
                                     className={({ isActive }) => isActive ? "bg-white text-primary text-lg" : "text-lg"}><i className="bi bi-folder-fill"></i>SONDAGES</NavLink>
                             </li>
                             <div className='absolute bottom-1 left-0 flex flex-col justify-center items-center w-full px-4'>
