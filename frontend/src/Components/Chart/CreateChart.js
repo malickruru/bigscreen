@@ -33,14 +33,14 @@ const CreateChart = () => {
 
     return (
         <div className='container p-5 mx-auto flex flex-col justify-center items-center '>
-            <h1 className='text-3xl text-black text-center mb-10'>Générer un graphique</h1>
+            <h1 className='text-3xl text-slate-200 text-center mb-10'>Générer un graphique</h1>
             <div className='flex justify-around items-end w-full'>
                 {/* critere */}
                 <div>
                     <label className="label">
-                        <span className="label-text text-black">Choisir un critère à étudier</span>
+                        <span className="label-text text-slate-200">Choisir un critère à étudier</span>
                     </label>
-                    <select ref={selectYarstick} className="select rounded-none bg-primary text-white  select-sm w-full max-w-xs">
+                    <select ref={selectYarstick} className="select rounded-none bg-slate-200 text-black  select-sm w-full max-w-xs">
                         <option disabled selected value={''}>Choisir un critère à étudier</option>
                         {
                             loading ? <div><span className="loading loading-spinner loading-md bg-primary"></span></div> :
@@ -56,9 +56,9 @@ const CreateChart = () => {
                 {/* type de chart */}
                 <div>
                     <label className="label">
-                        <span className="label-text text-black">Choisir un type de graphique</span>
+                        <span className="label-text text-slate-200">Choisir un type de graphique</span>
                     </label>
-                    <select ref={selectType} className="select rounded-none bg-primary text-white  select-sm w-full max-w-xs">
+                    <select ref={selectType} className="select rounded-none bg-slate-200 text-black  select-sm w-full max-w-xs">
                         <option disabled selected value={''}>Choisir un type de graphe</option>
                         {
                             types.map((type, key) => {
@@ -68,7 +68,7 @@ const CreateChart = () => {
                     </select>
                 </div>
                 
-                <button onClick={handleClick} class="btn btn-primary btn-sm rounded-none">Générer le graphique</button>
+                <button onClick={handleClick} class="btn bg-slate-200 text-black hover:bg-slate-200 hover:scale-95 btn-sm rounded-none">Générer le graphique</button>
                 
                 
 

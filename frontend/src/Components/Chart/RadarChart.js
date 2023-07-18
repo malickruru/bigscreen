@@ -40,7 +40,7 @@ const RadarChart = () => {
             seterror([true, res.message]);
             return
         }
-        let color = randomColor(0.2)
+        let color = randomColor(0.8)
         setdata(
             {
                 labels: res.data.label,
@@ -65,7 +65,7 @@ const RadarChart = () => {
         </div>
     } else {
         return <div className='flex flex-col w-11/12 text-center my-8'>
-            <h1 className='text-lg text-black py-3'>Qualité de l'application</h1>
+            <h1 className='text-lg text-slate-200 py-3'>Qualité de l'application</h1>
             <Radar
                 data={data}
                 options={
@@ -73,9 +73,28 @@ const RadarChart = () => {
                         scale: {
                             min: 0,
                             max: 5,
+                            
                         },
+                        color : "#fff",
+                        scales : {
+                            r: {
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    backdropColor: 'rgba(255, 255, 255, 0)'
+                                },
+                                pointLabels:{
+                                    color: '#fff',
+                                },
+                                
+                                
+                            }
+                        }
+
                     }
-                } />;
+                } />
         </div>
     }
 }

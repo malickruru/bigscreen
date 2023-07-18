@@ -3,7 +3,7 @@ import { Bar, Doughnut, Pie, PolarArea } from 'react-chartjs-2';
 import { AtypeData } from '../../Services/Route';
 import Error from '../Error';
 import { randomColorArray } from '../../Utils/Color';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, LinearScale, BarElement, Title, CategoryScale, RadialLinearScale } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, LinearScale, BarElement, Title, CategoryScale, RadialLinearScale, scales } from 'chart.js';
 
 
 ChartJS.register(ArcElement,
@@ -31,6 +31,9 @@ const MultiChart = ({ id, type }) => {
         }]
     });
     const [title, settitle] = useState('');
+    const colorOption = {
+        color: "#fff",
+    }
     useEffect(() => {
         fetchData();
     }, []);
@@ -44,7 +47,7 @@ const MultiChart = ({ id, type }) => {
             seterror([true, res.message]);
             return
         }
-        let colors = randomColorArray(res.data.data.length, 0.2)
+        let colors = randomColorArray(res.data.data.length, 0.8)
         setdata(
             {
                 labels: res.data.labels,
@@ -72,48 +75,129 @@ const MultiChart = ({ id, type }) => {
             case 'Doughnut':
                 return (
                     <div className='flex flex-col w-10/12 text-center my-8'>
-                        <h1 className='text-lg text-black py-3'>{title}</h1>
+                        <h1 className='text-xl  font-bold text-slate-200 py-3'>{title}</h1>
                         <Doughnut
                             data={data}
+                            options={
+                                colorOption
+                            }
                         />
                     </div>
                 )
             case 'VerticalBar':
                 return (
                     <div className='flex flex-col w-10/12 text-center my-8'>
-                        <h1 className='text-lg text-black py-3'>{title}</h1>
+                        <h1 className='text-xl  font-bold text-slate-200 py-3'>{title}</h1>
                         <Bar
                             data={data}
+                            options={
+                                {
+                                    ...colorOption,
+                                    elements : {
+                                        bar : {
+                                            borderRadius : {
+                                                topRight : 10,
+                                                topLeft : 10,
+                                            },
+                                        }
+                                    }
+                                    ,scales : {
+                                        x : {
+                                            grid : {
+                                                color : 'rgba(255, 255, 255, 0.3)'
+                                            },
+                                            ticks :{
+                                                color : '#fff'
+                                            }
+                                        },
+                                        y : {
+                                            grid : {
+                                                color : 'rgba(255, 255, 255, 0.3)'
+                                            },
+                                            ticks :{
+                                                color : '#fff'
+                                            }
+                                        },
+                                    }
+                                }
+                            }
                         />
                     </div>
                 )
             case 'HorizontalBar':
                 return (
                     <div className='flex flex-col w-10/12 text-center my-8'>
-                        <h1 className='text-lg text-black py-3'>{title}</h1>
+                        <h1 className='text-xl  font-bold text-slate-200 py-3'>{title}</h1>
                         <Bar
                             data={data}
                             options={{
                                 indexAxis: 'y',
-                            }}
+                                ...colorOption,
+                                elements : {
+                                    bar : {
+                                        borderRadius : {
+                                            topRight : 10,
+                                            bottomRight : 10,
+                                        },
+                                    }
+                                }
+                                ,scales : {
+                                    x : {
+                                        grid : {
+                                            color : 'rgba(255, 255, 255, 0.3)'
+                                        },
+                                        ticks :{
+                                            color : '#fff'
+                                        }
+                                    },
+                                    y : {
+                                        grid : {
+                                            color : 'rgba(255, 255, 255, 0.3)'
+                                        },
+                                        ticks :{
+                                            color : '#fff'
+                                        }
+                                    },
+                                }
+                                }}
                         />
                     </div>
                 )
             case 'PolarArea':
                 return (
                     <div className='flex flex-col w-10/12 text-center my-8'>
-                        <h1 className='text-lg text-black py-3'>{title}</h1>
+                        <h1 className='text-xl  font-bold text-slate-200 py-3'>{title}</h1>
                         <PolarArea
                             data={data}
+                            options={
+                                {
+                                    ...colorOption,
+                                    scales : {
+                                        r : {
+                                            grid : {
+                                                color : 'rgba(255, 255, 255, 0.3)'
+                                            },ticks :{
+                                                color : '#fff',
+                                                backdropColor : 'rgba(255, 255, 255, 0)'
+
+                                            }
+                                        },
+
+                                    }
+                                }
+                            }
                         />
                     </div>
                 )
             default:
                 return (
                     <div className='flex flex-col w-10/12 text-center my-8'>
-                        <h1 className='text-lg text-black py-3'>{title}</h1>
+                        <h1 className='text-xl  font-bold text-slate-200 py-3'>{title}</h1>
                         <Pie
                             data={data}
+                            options={
+                                colorOption
+                            }
                         />
                     </div>
 

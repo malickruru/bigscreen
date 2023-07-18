@@ -14,7 +14,7 @@ const HomeView = () => {
                         <p>{survey.description}</p>
                         <span className=' italic text-base-content'>{ FormatedDate(survey.created_at) }</span>
                         <div className="card-actions justify-end">
-                            <Link to={'/sondage/'+survey.id} className="btn bg-white text-base-100 hover:bg-white hover:scale-90">Répondre maintenant</Link >
+                            <Link to={'/survey/'+survey.id} className="btn bg-white text-base-100 hover:bg-white hover:scale-90">Répondre maintenant</Link >
                         </div>
                     </div>
                 </div>

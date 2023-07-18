@@ -111,12 +111,14 @@ class QuestionSeeder extends Seeder
             ],
             [
                 'corps' => 'Aimeriez-vous pouvoir enregistrer des émissions TV pour pouvoir les regarder ultérieurement ?',
-                'type' => 'C',
+                'type' => 'A',
+                'choix' => ['Oui', 'Non'],
                 'critère étudié' => 'volonté à enregistrer des émissions TV ',
             ],
             [
                 'corps' => 'Aimeriez-vous jouer à des jeux exclusifs sur votre Bigscreen ?',
-                'type' => 'C',
+                'type' => 'A',
+                'choix' => ['Oui', 'Non'],
                 'critère étudié' => 'volonté à profiter de jeux exclusifs ',
             ],
             [

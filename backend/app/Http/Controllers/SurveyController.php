@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Question;
 use App\Models\Survey;
+use App\Models\User;
+use App\Models\UserSurvey;
 use Illuminate\Http\Request;
 
 class SurveyController extends Controller
@@ -24,6 +26,30 @@ class SurveyController extends Controller
     public function isOnline()
     {
         return $this->sendSuccessResponse(Survey::where('isOnline','=',1)->get());
+    }
+
+    /**
+     * Méthode "isSurveyCompleted" pour verifier si un utilisateur a déja répondu au sondage:
+     */
+    public function isSurveyCompleted(Request $request, int $id)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        // inserer l'utilistateur dans la bd si il n'existe pas
+        if (!$user) {
+            return $this->sendSuccessResponse(['hasCompleted'  => false],'c\'est la première fois que vous répondez au sondage');
+        }else{
+            $hasRelation = $user->surveys()->where('survey_id', $id)->exists();
+            if ($hasRelation) {
+                $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$id]])->first()->answer_url;
+                return $this->sendSuccessResponse(['hasCompleted'  => true ,'link'  => 'response/'.$answerUrl],'vous avez déja répondu au sondage, visionnez vos réponses à l\'adresse : ');
+            }else{
+                return $this->sendSuccessResponse(['hasCompleted'  => false],'c\'est la première fois que vous répondez au sondage');
+            }
+        }
     }
 
     /**

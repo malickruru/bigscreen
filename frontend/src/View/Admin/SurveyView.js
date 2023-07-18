@@ -116,15 +116,16 @@ export const SurveyView = () => {
             }
         </AnimatePresence>
         {/* survey list */}
-        <h1 className='text-xl text-black py-4'>Liste des sondages</h1>
-        <button onClick={() => window.addSurvey.showModal()} className='btn btn-primary my-4'>
+        <h1 className='text-3xl text-slate-200 text-center my-10'>Liste des sondages</h1>
+
+        <button onClick={() => window.addSurvey.showModal()} className='btn  bg-blue-700 hover:bg-blue-800 text-white  my-4'>
             Ajouter un sondage +
         </button>
         {
             surveys.map((survey) => {
                 return survey.isOnline
                     ?
-                    <div className="card w-10/12 text-base-100 bg-slate-100 shadow-xl my-4" key={survey.id}>
+                    <div className="card w-10/12 bg-gray-800 border-gray-700  shadow-xl my-4" key={survey.id}>
                         <div className="card-body">
                             <div className='flex justify-between py-5'>
                                 <h2 className="card-title">{survey.title}</h2>
@@ -135,7 +136,7 @@ export const SurveyView = () => {
                         </div>
                     </div>
                     :
-                    <div className="card w-10/12  text-base-100 bg-slate-100 shadow-xl my-4" key={survey.id}>
+                    <div className="card w-10/12  bg-gray-800 border-gray-700  shadow-xl my-4" key={survey.id}>
                         <div className="card-body">
                             <div className='flex justify-between py-5'>
                                 <h2 className="card-title">{survey.title}</h2>
@@ -144,9 +145,9 @@ export const SurveyView = () => {
                             <div className='flex '>
                                 <p className='w-1/2'>{survey.description}</p>
                                 <div className='w-1/2 flex-wrap'>
-                                    <button className='btn btn-primary w-full my-2'>Mettre le sondage en ligne</button>
-                                    <button className='btn btn-error mr-1 w-[49%]'>Supprimer</button>
-                                    <button className='btn btn-primary w-[49%] ml-1'>Modifier</button>
+                                    <button className='btn  bg-blue-700 hover:bg-blue-800 text-white  w-full my-2'>Mettre le sondage en ligne</button>
+                                    <button className='btn text-white bg-red-700 hover:bg-red-800 mr-1 w-[49%]'>Supprimer</button>
+                                    <button className='btn  bg-blue-700 hover:bg-blue-800 text-white  w-[49%] ml-1'>Modifier</button>
                                 </div>
                             </div>
                             <div className='divider'></div>
@@ -167,8 +168,8 @@ export const SurveyView = () => {
                 <Input label={'Titre du sondage'} type={'text'} name={'title'} placeholder={'Mon super sondage'} />
                 <Textarea label={'Description du sondage'} name={'description'} />
                 {
-                    loading ? <div className='btn btn-primary'><span className="loading loading-spinner "></span> </div> :
-                        <button className='btn btn-primary' type="submit" name="action" value="addSurvey">
+                    loading ? <div className='btn  bg-blue-700 hover:bg-blue-800 text-white '><span className="loading loading-spinner "></span> </div> :
+                        <button className='btn  bg-blue-700 hover:bg-blue-800 text-white ' type="submit" name="action" value="addSurvey">
                             Ajouter
                         </button>
                 }

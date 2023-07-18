@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
 
-const AnswerType = ({ question, next , value}) => {
+const AnswerType = ({ question, next , value ,previous}) => {
 
     const input = useRef(null)
 
     useEffect(() => {
         function onEnter(event) {
-            if ( event.key == 'Enter' && input?.current) {
+            if ( (event.key == 'Enter' || event.key == 'ArrowRight')  && input?.current) {
                 next(input.current.value)
+            }else if(event.key == 'ArrowLeft'){
+                previous()
             }
           }
       
@@ -38,7 +40,7 @@ const AnswerType = ({ question, next , value}) => {
         default:
             if (question.validateAs != 'textarea') {
                 return <>
-                    <input ref={input} type={question.validateAs} placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-xl border-b-2 border-solid min-w-1/2' value={value}/>
+                    <input ref={input} type={question.validateAs} placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-3xl border-b-2 border-solid min-w-1/2' defaultValue={value}/>
                     <div className=' mt-4'>
                         <button onClick={() => { next(input.current.value) }} className="  btn-square bg-white text-black hover:bg-base-content mr-3">OK</button>
                         <span className='italic'>Appuyer sur entrer</span>
@@ -58,7 +60,7 @@ const AnswerType = ({ question, next , value}) => {
     }
 }
 
-const Question = ({ question, next,value,direction }) => {
+const Question = ({ question, next,value ,previous}) => {
     let delay = question.type == 'A' ? 0.1 : 0.5 
    
     return (
@@ -77,7 +79,7 @@ const Question = ({ question, next,value,direction }) => {
 
                 <p className='text-white text-xl'>{question.text}</p>
             </div>
-            <AnswerType question={question} next={next} value={value} />
+            <AnswerType question={question} next={next} value={value} previous={previous} />
         </motion.div>
 
     );

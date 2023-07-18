@@ -45,7 +45,7 @@ class AnswerController extends Controller
             $hasRelation = $user->surveys()->where('survey_id', $request->survey_id)->exists();
             if ($hasRelation) {
                 $answerUrl = UserSurvey::where([['user_id','=',$user->id],['survey_id','=',$request->survey_id]])->first()->answer_url;
-                return $this->sendSuccessResponse(['link'  => 'reponse/'.$answerUrl],'vous avez déja répondu au sondage, visionnez vos réponses à l\'adresse : ');
+                return $this->sendSuccessResponse(['link'  => 'response/'.$answerUrl],'vous avez déja répondu au sondage, visionnez vos réponses à l\'adresse : ');
             }
         }
         // parcourir le tableau data et inserer une question à chaque iteration
@@ -66,7 +66,7 @@ class AnswerController extends Controller
             'answer_url' => $answer_url
         ]);
 
-        return $this->sendSuccessResponse(['link'  => 'reponse/'.$answer_url],'Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
+        return $this->sendSuccessResponse(['link'  => 'response/'.$answer_url],'Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
         votre investissement, nous vous préparons une application toujours plus facile
         à utiliser, seul ou en famille.
         Si vous désirez consulter vos réponses ultérieurement, vous pouvez consultez

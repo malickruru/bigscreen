@@ -28,7 +28,7 @@ const router = createBrowserRouter([
 
       },
       {
-        path: "/sondage/:id",
+        path: "/survey/:id",
         element: <SurveyView />,
         loader: async ({ params }) => {
           let res = await listQuestion.getResponse({'id' : params.id})
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 
       },
       {
-        path: "/reponse/:encoded",
+        path: "/response/:encoded",
         element: <AnswerView />,
         loader: async ({ params }) => {
           let res = await listAnswerByUser.getResponse({'encoded' : params.encoded})
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         element: <HomeAdminView/>,
       },
       {
-        path: "question",
+        path: "questions",
         element: <QuestionView/>,
         loader : async () => {
           let res = await listQuestion.getResponse({id : localStorage.getItem("BigScreenActiveSurvey") })
@@ -78,15 +78,15 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "reponse/:page",
+        path: "responses/:page",
         element: <AnswerAdminView/>,
         loader : async ({params}) => {
-          let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : params.page})
+          let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : params.page })
           return res.data;
         },
       },
       {
-        path: "sondage",
+        path: "surveys",
         element: <SurveyAdminView/>,
         loader : async () => {
           let res = await listSurvey.getResponse()
