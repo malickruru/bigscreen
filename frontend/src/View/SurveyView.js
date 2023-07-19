@@ -22,15 +22,15 @@ const SurveyView = () => {
 
     useEffect(() => {
 
-        function confirmerAvantDeQuitter(event) {
+        function comfirmBeforeQuit(event) {
             event.preventDefault();
             event.returnValue = '';
         }
 
-        window.addEventListener('beforeunload', confirmerAvantDeQuitter);
+        window.addEventListener('beforeunload', comfirmBeforeQuit);
 
         return () => {
-            window.removeEventListener('beforeunload', confirmerAvantDeQuitter);
+            window.removeEventListener('beforeunload', comfirmBeforeQuit);
         };
     }, []);
 
@@ -116,7 +116,7 @@ const SurveyView = () => {
                     &&
                     <>
                         <AnimatePresence mode='wait'>
-                            <Question key={current + 1} question={questions[current]} next={NextQuestion} previous={PreviousQuestion} value={data[questions[current].id]} />
+                            <Question index={current + 1} key={current + 1} question={questions[current]} next={NextQuestion} previous={PreviousQuestion} value={data[questions[current].id]} />
                         </AnimatePresence>
                         <div
                             className=" w-1/2 absolute bottom-20 h-2 rounded bg-base-200 overflow-hidden"

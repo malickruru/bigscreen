@@ -11,6 +11,7 @@ let logout = new Post(true,'/logout');
 let listQuestion = new Get(true,'/survey/:id/questions');
 let addQuestion = new Post(false,'/question');
 let deleteQuestion = new Get(false,'/question/:id/delete');
+let listUnreleasedQuestions = new Get(false,'/survey/:id/questions/unreleased');
 // answer
 let addAnswer = new Post(true,'/answers');
 let listAnswerByUser = new Get(true,'/answers/:encoded');
@@ -27,4 +28,5 @@ let editSurvey = new Post(false,'/survey/:id/update');
 let deleteSurvey = new Get(false,'/survey/:id/delete');
 
 
-export { login, logout, listQuestion, addQuestion, deleteQuestion, addAnswer, listAnswerByUser, AtypeData, qualityData, listAnswer, onlineSurvey, isSurveyCompleted, listSurvey, addSurvey, releaseSurvey, editSurvey, deleteSurvey }
+
+export { login, logout, listQuestion, addQuestion, deleteQuestion, listUnreleasedQuestions, addAnswer, listAnswerByUser, AtypeData, qualityData, listAnswer, onlineSurvey, isSurveyCompleted, listSurvey, addSurvey, releaseSurvey, editSurvey, deleteSurvey }

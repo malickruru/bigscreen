@@ -8,7 +8,7 @@ const HomeView = () => {
     return (
         <div className="container mx-auto p-5 mt-14 flex justify-center items-center flex-col h-screen relative">
             {surveys.map((survey,key) => {
-                return <div className="card w-1/2 bg-base-100 shadow-xl" key={key}>
+                return <div className="card my-3 w-1/2 bg-base-100 shadow-xl" key={key}>
                     <div className="card-body">
                         <h2 className="card-title">{survey.title}</h2>
                         <p>{survey.description}</p>

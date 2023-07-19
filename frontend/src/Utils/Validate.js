@@ -18,13 +18,13 @@ function estEmailValide(email) {
 }
 
 
-export const Validate = (value, rule) => {
+export const Validate = (value, rule, name = '') => {
     // required
     if (!value) {
         return {
             "error": true,
-            "message": "Ce champs est requis"
-        }
+            "message": `Le champs ${name} est requis`
+        };
     }
 
     switch (rule) {

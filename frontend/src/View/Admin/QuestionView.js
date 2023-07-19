@@ -17,9 +17,9 @@ const QuestionView = () => {
                 <tbody>
                     {questions.map((question, key) => {
                         return <tr key={key} className='bg-gray-800 border-gray-700'>
-                            <th className='px-6 py-4" font-medium text-slate-200'>{key + 1}</th>
-                            <td className='px-6 py-4" '>{question.text}</td>
-                            <td className='px-6 py-4" '>{question.type}</td>
+                            <th className=' font-medium text-slate-200'>{key + 1}</th>
+                            <td className=' '>{question.text}</td>
+                            <td className=' '>{question.type}</td>
                         </tr>;
                     })}
                 </tbody>

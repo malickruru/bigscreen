@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, NavLink, Outlet, useLoaderData, useLocation } from 'react-router-dom';
+import { Form, NavLink, Outlet, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as BigScreenLogo } from '../Assets/Images/BigScreenLogo.svg';
 import { activeSurvey } from '../Utils/ActiveSurvey';
 
@@ -7,6 +7,7 @@ import { activeSurvey } from '../Utils/ActiveSurvey';
 const AdminLayout = () => {
     const surveys = useLoaderData();
     const location = useLocation();
+    const navigate = useNavigate();
     const {hash,pathname,search} = location
     
     return (
@@ -55,7 +56,10 @@ const AdminLayout = () => {
                                 <div className='text-left w-full'>
                                     <span className=' text-slate-400'>sondage actif</span>
                                     <h1 className='text-lg '>{activeSurvey(surveys).title}</h1>
-                                    <select className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">
+                                    <select onChange={(e) => {
+                                        localStorage.setItem("BigScreenActiveSurvey",e.target.value)
+                                        navigate("")
+                                    }} className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">
                                         <option disabled selected>Analyser un autre sondage</option>
                                         {
                                             surveys.map((survey,key) => {

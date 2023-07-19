@@ -68,6 +68,7 @@ class SurveyController extends Controller
         $question->survey_id = $survey->id;
         $question->text = 'Votre adresse mail ?';
         $question->yardstick = 'email';
+        $question->validateAs = 'email';
         $question->type = 'B';
         $question->save();
 

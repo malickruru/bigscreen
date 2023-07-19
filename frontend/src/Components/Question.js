@@ -60,7 +60,7 @@ const AnswerType = ({ question, next , value ,previous}) => {
     }
 }
 
-const Question = ({ question, next,value ,previous}) => {
+const Question = ({ index, question, next,value ,previous}) => {
     let delay = question.type == 'A' ? 0.1 : 0.5 
    
     return (
@@ -73,7 +73,7 @@ const Question = ({ question, next,value ,previous}) => {
         >
             <div className='flex  items-center justify-center w-full mb-4 '>
                 <p className='text-white mr-2 text-xl'>
-                    <span > {question.id} </span>
+                    <span > {index} </span>
                     <i className="bi bi-arrow-right m-2"></i>
                 </p>
 

@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         // * question
         Route::post('/question', [QuestionController::class,'store']);
         Route::get('/question/{id}/delete', [QuestionController::class,'destroy']);
+        Route::get('/survey/{id}/questions/unreleased', [QuestionController::class,'getUnreleasedQuestion']);
         // * answer 
         Route::get('/answer/{id}/Atype_data', [AnswerController::class,'getAnswerData']);
         Route::get('/answer/quality_data', [AnswerController::class,'radarData']);

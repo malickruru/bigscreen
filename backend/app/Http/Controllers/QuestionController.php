@@ -15,7 +15,7 @@ class QuestionController extends Controller
    
 
     /**
-     * Cette methode retourne toutes les questions d'un sondage 
+     * Cette methode retourne toutes les questions d'un sondage en ligne
      * 
      * @param
      * id du sondage voulu
@@ -29,11 +29,25 @@ class QuestionController extends Controller
     }
 
     /**
+     * Cette methode retourne toutes les questions d'un sondage 
+     * 
+     * @param
+     * id du sondage voulu
+     */
+    public function getUnreleasedQuestion(int $id){
+        $survey = Survey::findOrFail($id);
+        return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
+    }
+
+    /**
      * Méthode "store" pour enregistrer une nouvelle question dans la base de données :
      */
     public function store(Request $request)
     {
-        
+        $survey = Survey::findOrFail($request->input('survey_id'));
+        if($survey->isOnline){
+            return $this->sendErrorResponse('Ce sondage est  en production il ne peut plus reçevoir de question',404);
+        }
         $question = new Question();
         $question->survey_id = $request->input('survey_id');
         $question->text = $request->input('text');
@@ -65,6 +79,6 @@ class QuestionController extends Controller
             return $this->sendErrorResponse('Cette question est obligatoire pour tous les sondages , suppression impossible',403); 
         }
         $question->delete();
-        return $this->sendSuccessResponse(new QuestionResource($question),'La question a été suprimmer avec succès.'); 
+        return $this->sendSuccessResponse(new QuestionResource($question),'La question a été suprimer avec succès.'); 
     }
 }
