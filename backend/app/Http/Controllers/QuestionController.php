@@ -52,6 +52,7 @@ class QuestionController extends Controller
         $question->survey_id = $request->input('survey_id');
         $question->text = $request->input('text');
         $question->yardstick = $request->input('yardstick');
+        $question->validateAs = $request->input('validateAs');
         $question->type = $request->input('type');
         $question->save();
         if($question->type == 'A'){

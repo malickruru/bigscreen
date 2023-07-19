@@ -7,8 +7,13 @@ const AnswerType = ({ question, next , value ,previous}) => {
 
     useEffect(() => {
         function onEnter(event) {
-            if ( (event.key == 'Enter' || event.key == 'ArrowRight')  && input?.current) {
-                next(input.current.value)
+            if ( (event.key == 'Enter' || event.key == 'ArrowRight')  ) {
+                if (question.type != 'B' ) {
+                    next(value)
+                }else{
+                    next(input.current.value)
+                }
+                
             }else if(event.key == 'ArrowLeft'){
                 previous()
             }
@@ -49,9 +54,9 @@ const AnswerType = ({ question, next , value ,previous}) => {
                 </>
             } else {
                 return <>
-                <textarea ref={input}  className='text-white my-6 bg-black p-5 outline-none text-xl border-2 border-dashed w-9/12 border-white' value={value} />
+                <textarea ref={input}  className='text-white my-6 bg-black p-5 outline-none text-xl border-2 border-dashed w-9/12 border-white' defaultValue={value} />
                 <div className=' mt-4'>
-                    <button onClick={() => { next(input.current.value) }} className="  btn-square bg-white text-black hover:bg-base-content mr-3">OK</button>
+                    <button onClick={() => { next(input.current.value) }} className="btn-square bg-white text-black hover:bg-base-content mr-3">OK</button>
                     <span className='italic'>Appuyer sur entrer</span>
                     <i className="bi bi-arrow-return-left ml-3"></i>
                 </div>

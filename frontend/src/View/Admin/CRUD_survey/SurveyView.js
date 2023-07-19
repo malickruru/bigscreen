@@ -38,16 +38,16 @@ const SurveyQuestion = ({ id,onDelete,onAdd }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {questions.map((question, key) => {
-                                    return <tr className='bg-gray-800 border-gray-700 text-slate-200' key={key}>
-                                        <th className=' font-medium text-slate-200'>{key + 1}</th>
+                                {questions.map((question, idx) => {
+                                    return <tr className='bg-gray-800 border-gray-700 text-slate-200' key={idx}>
+                                        <th className=' font-medium text-slate-200'>{idx + 1}</th>
                                         <td >{question.text}</td>
                                         <td >{question.type}</td>
                                         <td >
                                             {
                                                 question.type == 'A' && <ul>
-                                                    {question.choices.map((choice) => {
-                                                        return <li key={choice} className=' list-disc'>{choice.text}</li>
+                                                    {question.choices.map((choice,id) => {
+                                                        return <li key={id} className=' list-disc'>{choice.text}</li>
                                                     })}
                                                 </ul>
                                             }

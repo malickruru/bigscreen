@@ -10,6 +10,7 @@ import{ HomeView as HomeAdminView} from '../View/Admin/HomeView';
 import{ AnswerView as AnswerAdminView} from '../View/Admin/AnswerView';
 import{ SurveyView as SurveyAdminView} from '../View/Admin/CRUD_survey/SurveyView';
 import QuestionView from '../View/Admin/QuestionView';
+import NotFound from '../View/NotFound';
 
 
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <CustomerLayout />,
+    errorElement:<NotFound />,
     children: [
       {
         path: "/",
@@ -49,6 +51,7 @@ const router = createBrowserRouter([
   {
     path : "/administration",
     element : <AdminLayout />,
+    errorElement:<NotFound />,
     loader : async () => {
       if(!localStorage.getItem("BigScreenToken")){
         return  redirect("/login")
@@ -82,6 +85,7 @@ const router = createBrowserRouter([
         element: <AnswerAdminView/>,
         loader : async ({params}) => {
           let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : params.page })
+          
           return res.data;
         },
       },
@@ -93,6 +97,7 @@ const router = createBrowserRouter([
   },
   {
     path : "/login",
+    errorElement:<NotFound />,
     element : <LoginView />,
     action : async  ({request}) => {
       const formData = await request.formData()

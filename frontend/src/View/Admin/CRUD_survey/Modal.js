@@ -6,10 +6,13 @@ import { addQuestion, addSurvey, deleteQuestion, deleteSurvey, editSurvey, relea
 const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     const [loading, setLoading] = useState(false)
 
-    const submitData = () => {
+    const submitData = async () => {
         setLoading(true)
 
-        if (onsubmit().close === false) {
+        const result = await onsubmit();
+        
+        if (result.close == false) {
+            console.log(result);
             setLoading(false)
             return
         }
@@ -23,7 +26,7 @@ const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
             <div onClick={(e) => e.stopPropagation()} className="relative   rounded-lg shadow w-1/3 bg-gray-700">
                 {/* <!-- Modal header --> */}
                 <div className="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
-                    <h3 className="text-xl text-center font-semibold text-white">
+                    <h3 className="text-xl  font-semibold text-white">
                         {title}
                     </h3>
                     <button onClick={onClose} type="button" className="text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white" >
@@ -182,7 +185,7 @@ const ReleaseSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
                 <svg className="mx-auto mb-4 text-gray-200 w-12 h-12 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <h3 className="mb-5 text-lg font-normal text-center text-gray-400 ">Une fois en production un sondage ne peut plus être modifier et il ne sera plus possible d'y ajouter des questions , Êtes-vous sûr de vouloir continuer ? </h3>
+                <h3 className="mb-5 text-lg font-normal  text-gray-400 ">Une fois en production un sondage ne peut plus être modifier et il ne sera plus possible d'y ajouter des questions , <br/> Êtes-vous sûr de vouloir continuer ? </h3>
             </div>
         </Modal>
     )
@@ -229,8 +232,11 @@ const Addquestion = ({ onClose, onNotify, onUpdate, questionData }) => {
             Validate(yardstick, 'text', 'critère étudié'),
             Validate(type, 'text', 'type'),
         ]
+
         for (let index = 0; index < Validation.length; index++) {
+            
             if (Validation[index].error) {
+                
                 onNotify('error', Validation[index].message)
                 return { close: false }
             }

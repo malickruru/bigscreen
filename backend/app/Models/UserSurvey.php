@@ -16,4 +16,8 @@ class UserSurvey extends Model
             $survey = $this->belongsTo(Survey::class,'survey_id','id')->first();
             return $user->answersBySurvey($survey->id);
     }
+
+    public function user(){
+        
+    }
 }

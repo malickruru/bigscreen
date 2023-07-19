@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Success = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (
         <motion.div
-            className={"alert alert-success my-4  absolute " + postion.join(' ') +' '+ AlertWidth.join(' ')}
+            className={"alert alert-success my-4  fixed " + postion.join(' ') +' '+ AlertWidth.join(' ')}
             initial={{ opacity: 0, scale: 0.3 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 }}}>

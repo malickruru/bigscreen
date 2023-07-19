@@ -7,7 +7,6 @@ import { activeSurvey } from '../Utils/ActiveSurvey';
 const AdminLayout = () => {
     const surveys = useLoaderData();
     const location = useLocation();
-    const navigate = useNavigate();
     const {hash,pathname,search} = location
     
     return (
@@ -58,7 +57,7 @@ const AdminLayout = () => {
                                     <h1 className='text-lg '>{activeSurvey(surveys).title}</h1>
                                     <select onChange={(e) => {
                                         localStorage.setItem("BigScreenActiveSurvey",e.target.value)
-                                        navigate("")
+                                        window.location.reload()
                                     }} className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">
                                         <option disabled selected>Analyser un autre sondage</option>
                                         {

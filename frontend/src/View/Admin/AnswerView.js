@@ -12,6 +12,9 @@ export const AnswerView = () => {
     const [ids, setIds] = useState([])
 
     const getIds = () => {
+        if(!data.answers[0]){
+            return []
+        }
         return data.answers[0].map((answer, key) => key)
     }
     useEffect(() => {

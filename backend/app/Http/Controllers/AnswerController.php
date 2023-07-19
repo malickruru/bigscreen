@@ -7,6 +7,7 @@ use App\Http\Resources\DataResource;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Answer;
 use App\Models\Question;
+use App\Models\Survey;
 use App\Models\User;
 use App\Models\UserSurvey;
 use Illuminate\Http\Request;
@@ -140,15 +141,18 @@ class AnswerController extends Controller
         $data = [];
         $data['answers'] = [];
 
-        $totalCount = User::count();
+        
+
+        $totalCount = Survey::findOrFail($surveyId)->users()->count();
+        
         $totalPages = ceil($totalCount / 5); //nombre total de pages sachant qu'il ya 5 utilisateurs par page
 
-        $users = User::all()->skip(($page - 1) * 5)->take(5);
-
+        $users = Survey::findOrFail($surveyId)->users()->get()->skip(($page - 1) * 5)->take(5);
+        
         foreach ($users as $user) {
             array_push($data['answers'] ,  AnswerResource::collection($user->answersBySurvey($surveyId)));
         }
-
+        
         $data['totalPages'] = $totalPages;
         
         return $this->sendSuccessResponse($data);
