@@ -1,5 +1,6 @@
 import React from 'react';
 
+// vue de chargement des pages lorsqu'il y a une requête en cour
 const LoaderView = () => {
     return (
         <div className=" flex justify-center items-center flex-col h-screen">

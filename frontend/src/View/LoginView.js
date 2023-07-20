@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react';
 import Error from '../Components/Error';
 import { Form, useActionData, useSubmit } from 'react-router-dom';
 
-
+// Vue de connexion du l'administrateur
 const LoginView = () => {
+    // méthode de soumission du formulaire
     let submit = useSubmit();
+    
     let errorMessage = useActionData();
     const [error, seterror] = useState(false);
     const [loading, setloading] = useState(false);
 
     useEffect(() => {
-
+        // effacer le message d'erreur après 5 secondes
         if (errorMessage) {
             seterror(true)
             setloading(false)
@@ -48,10 +50,7 @@ const LoginView = () => {
 
                     </label>
                     <input type="email" required name='email' placeholder="exemple@gmail.com" className="input rounded-none w-full " />
-                    {/* <label className="label">
-                    <span className="label-text-alt">Bottom Left label</span>
-                    
-                </label> */}
+                    {/*  </label> */}
                 </div>
                 {/* password */}
                 <div className="form-control my-10 w-96">
@@ -60,10 +59,7 @@ const LoginView = () => {
 
                     </label>
                     <input type="password" required name='password' placeholder="Mot de passe" className="input rounded-none  w-full " />
-                    {/* <label className="label">
-                    <span className="label-text-alt">Bottom Left label</span>
-                    
-                </label> */}
+                    {/*   </label> */}
                 </div>
                 {/* submit */}
                 <div className='w-96 flex justify-center'>

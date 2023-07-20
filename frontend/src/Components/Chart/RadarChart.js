@@ -13,6 +13,7 @@ ChartJS.register(
     Legend
 );
 
+// Retourne un graphique de type radar
 const RadarChart = () => {
     const [[error, errorMessage], seterror] = useState([false, '']);
     const [loading, setloading] = useState(false);
@@ -29,6 +30,7 @@ const RadarChart = () => {
 
 
     useEffect(() => {
+        // récupérer les données du graphe lorsque le composant est monté
         fetchData();
     }, []);
 

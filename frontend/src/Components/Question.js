@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from "framer-motion";
 
+// Contenu de la question modulable en fonction de son type
+
 const AnswerType = ({ question, next , value ,previous}) => {
 
     const input = useRef(null)
 
     useEffect(() => {
+        // méthode pour naviguer entre les questions avec les touches du clavier
         function onEnter(event) {
             if ( (event.key == 'Enter' || event.key == 'ArrowRight')  ) {
                 if (question.type != 'B' ) {
@@ -65,7 +68,11 @@ const AnswerType = ({ question, next , value ,previous}) => {
     }
 }
 
+
+// Composant question 
+
 const Question = ({ index, question, next,value ,previous}) => {
+    // délais de l'animation
     let delay = question.type == 'A' ? 0.1 : 0.5 
    
     return (

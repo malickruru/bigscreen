@@ -6,10 +6,11 @@ import { listQuestion, listSurvey, listUnreleasedQuestions } from '../../../Serv
 import Success from '../../../Components/Success';
 import { AddSurvey, Addquestion, DeleteQuestion, DeleteSurvey, EditSurvey, Modal, ReleaseSurvey } from './Modal';
 
-
+// Questions d'un sondage
 const SurveyQuestion = ({ id,onDelete,onAdd }) => {
     const [questions, setquestion] = useState(false);
 
+    // récupérer les questions
     const getQuestion = async () => {
         if (!questions) {
             let res = await listUnreleasedQuestions.getResponse({ id: id })
@@ -64,21 +65,24 @@ const SurveyQuestion = ({ id,onDelete,onAdd }) => {
     )
 }
 
-
+// vue présentant tous les sondages
 export const SurveyView = () => {
 
     const [surveys, setSurvey] = useState([])
     const [surveyData, setSurveyData] = useState({})
     const [loading, setLoading] = useState(false)
     const [[NotificationType, message], setNotification] = useState([false, ''])
+    // determine l'index du popup ouvert , -1 signifie qu'aucun popup n'est ouvert
     const [openedModal, setOpenedModal] = useState(-1)
 
     useEffect(() => {
+        // Récupérer les sondages
         getSurvey()
     }, []);
 
-    // lorsqu'il ya une erreur
+    // lorsqu'il ya une erreur ou un message à afficher
     useEffect(() => {
+        // masquer la notification après 5 seconde
         if (NotificationType != false) {
             setTimeout(() => {
                 setNotification([false, ''])
@@ -96,19 +100,23 @@ export const SurveyView = () => {
         setLoading(false)
     }
 
+    // afficher une notification
     const showNotification = (type, msg) => {
         setNotification([type, msg])
     }
 
+    // ouvrir un popup
     const openModal = (modalId,data = {}) => {
         setSurveyData(data)
         setOpenedModal(modalId)
     }
 
+    // fermer un popup
     const closeModal = () => {
         setOpenedModal(-1)
     }
 
+    // ensemble des popups
     const Modals = [
     <AddSurvey onClose={closeModal} onNotify={showNotification} onUpdate={getSurvey} />,
     <DeleteSurvey onClose={closeModal} onNotify={showNotification} onUpdate={getSurvey} surveyData={surveyData} />,

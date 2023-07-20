@@ -1,7 +1,5 @@
 import { Get, Post} from "./ApiRequest";
 
-
-
 // definition des routes , rangées par modèle
 
 // User

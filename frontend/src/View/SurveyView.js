@@ -7,21 +7,26 @@ import Error from '../Components/Error';
 import { addAnswer, isSurveyCompleted } from '../Services/Route';
 import LoaderView from './LoaderView';
 
+
+// vue présentant un sondage
 const SurveyView = () => {
+    // current est l'index de la question en cours
     const [current, setCurrent] = useState(0);
+    // données de réponse
     const [data, setData] = useState({})
     const [email, setEmail] = useState('')
     const [[error, errorMessage], setError] = useState([false, '']);
     const [loading, setLoading] = useState(false)
+    // id du sondage passé en paramètre
     const survey = useParams()
-    const [isSurveyOver, setSurveyOver] = useState(false)
+    //resultat du sondage
     const [[result, answerLink], setResult] = useState(['', ''])
-
+    //question du sondage
     const questions = useLoaderData();
 
 
     useEffect(() => {
-
+        // prévenir l'utilisateur que ses données ne seront pas enregistrer si il quitte prématurément le sondage
         function comfirmBeforeQuit(event) {
             event.preventDefault();
             event.returnValue = '';
@@ -35,6 +40,7 @@ const SurveyView = () => {
     }, []);
 
     useEffect(() => {
+        // retirer la notification d'erreur après 3 secondes
         if (error) {
             setTimeout(() => { setError([false, '']) }, 3000);
         }
@@ -64,23 +70,28 @@ const SurveyView = () => {
                     return
                 }
                 setLoading(false)
-
             }
+            // ajouter la réponse dans l'objet data
             setData({ ...data, [questions[current].id]: out, })
+            // incrémenter l'index de la question
             setCurrent(current + 1)
         } else {
+            // si il n'ya plus de question soumettre les réponses
             submit(out)
         }
     }
 
     const PreviousQuestion = () => {
+        // aller a la question précédente
         if (current > 0) {
             setCurrent(current - 1)
         }
 
     }
 
+    // soumettre les réponses
     const submit = async (lastAnswer) => {
+
         setLoading(true)
         let res = await addAnswer.getResponse({}, {
             "email": email,

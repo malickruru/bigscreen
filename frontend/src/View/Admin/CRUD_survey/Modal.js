@@ -3,9 +3,11 @@ import { Children } from 'react';
 import { Validate } from '../../../Utils/Validate';
 import { addQuestion, addSurvey, deleteQuestion, deleteSurvey, editSurvey, releaseSurvey } from '../../../Services/Route';
 
+// Composant popup
 const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     const [loading, setLoading] = useState(false)
 
+    // chaque popup à une fonction pour soumettre les données
     const submitData = async () => {
         setLoading(true)
 
@@ -54,6 +56,7 @@ const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     );
 }
 
+// ajout de sondage
 const AddSurvey = ({ onClose, onNotify, onUpdate }) => {
     const [title, settitle] = useState('');
     const [description, setdescription] = useState('');
@@ -74,6 +77,7 @@ const AddSurvey = ({ onClose, onNotify, onUpdate }) => {
         if (!res.success) {
             onNotify('error', res.message)
         } else {
+            // mettre a jour les sondages
             onUpdate()
             onNotify('success', res.message)
         }
@@ -97,12 +101,14 @@ const AddSurvey = ({ onClose, onNotify, onUpdate }) => {
 
 }
 
+// supprimer un sondage
 const DeleteSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const handleDeleteSurvey = async () => {
         let res = await deleteSurvey.getResponse({ id: surveyData.id }, {})
         if (!res.success) {
             onNotify('error', res.message)
         } else {
+            // mettre a jour les sondages
             onUpdate()
             onNotify('success', res.message)
         }
@@ -123,6 +129,7 @@ const DeleteSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 }
 
 
+// mettre a jour les information d'un sondage
 const EditSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const [title, settitle] = useState(surveyData.title);
     const [description, setdescription] = useState(surveyData.description);
@@ -144,6 +151,7 @@ const EditSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
         if (!res.success) {
             onNotify('error', res.message)
         } else {
+            // mettre a jour les sondages
             onUpdate()
             onNotify('success', res.message)
         }
@@ -167,12 +175,14 @@ const EditSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 
 }
 
+// mettre un sondage en ligne
 const ReleaseSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const handleReleaseSurvey = async () => {
         let res = await releaseSurvey.getResponse({ id: surveyData.id }, {})
         if (!res.success) {
             onNotify('error', res.message)
         } else {
+            // mettre a jour les sondages
             onUpdate()
             onNotify('success', res.message)
         }
@@ -192,10 +202,12 @@ const ReleaseSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 
 }
 
+// supprimer une question
 const DeleteQuestion = ({ onClose, onNotify, onUpdate, questionData }) => {
     const handleDeleteQuestion = async () => {
         let res = await deleteQuestion.getResponse({ id: questionData.id }, {})
         if (!res.success) {
+            // mettre a jour les sondages
             onUpdate()
             onNotify('error', res.message)
         } else {
@@ -218,6 +230,7 @@ const DeleteQuestion = ({ onClose, onNotify, onUpdate, questionData }) => {
 
 }
 
+// Ajouter une question
 const Addquestion = ({ onClose, onNotify, onUpdate, questionData }) => {
     const [text, settext] = useState('');
     const [yardstick, setyardstick] = useState('');

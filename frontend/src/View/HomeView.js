@@ -2,7 +2,10 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { FormatedDate } from '../Utils/Date';
 
+// page d'accueil permmet de choisir un sondage à essayer
+
 const HomeView = () => {
+    // tableau des sondages
     const surveys = useLoaderData();
     
     return (

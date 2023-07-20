@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 
+// vue présentant toutes les questions du sondage
 const QuestionView = () => {
+    // ensemble des questions
     const questions = useLoaderData();
     return (
         <><h1 className='text-3xl text-slate-200 text-center my-10'>Questions du sondage</h1><div className="flex justify-center items-center py-5">

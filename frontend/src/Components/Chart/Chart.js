@@ -16,6 +16,7 @@ ChartJS.register(ArcElement,
     RadialLinearScale
 );
 
+// Ce composant retourne un graphique en fonction du type passé en prop
 
 const MultiChart = ({ id, type }) => {
     const [[error, errorMessage], seterror] = useState([false, '']);
@@ -35,6 +36,7 @@ const MultiChart = ({ id, type }) => {
         color: "#fff",
     }
     useEffect(() => {
+        // récupérer les données du graphe lorsque le composant est monté
         fetchData();
     }, []);
 

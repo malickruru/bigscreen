@@ -1,3 +1,4 @@
+// formater un date
 export const FormatedDate = (str) => {
     
     const date = new Date(str);

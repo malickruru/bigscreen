@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Cette vue s'affiche lorsque l'url demandée n'existe pas
 const NotFound = () => {
     return (
         <div className='w-full h-full '>

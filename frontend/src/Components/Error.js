@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from "framer-motion";
 
+//  message d'erreur
 
 const Error = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (

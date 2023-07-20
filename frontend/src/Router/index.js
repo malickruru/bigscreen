@@ -13,16 +13,19 @@ import QuestionView from '../View/Admin/QuestionView';
 import NotFound from '../View/NotFound';
 
 
+// routeur de l'application
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <CustomerLayout />,
+    // Composant afficher en cas d'url incorrect
     errorElement:<NotFound />,
     children: [
       {
         path: "/",
         element: <HomeView />,
+        // données à récupérer lorsque ce lien est appelé
         loader: async () => {
           let res = await onlineSurvey.getResponse()
           return res.data
@@ -32,6 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/survey/:id",
         element: <SurveyView />,
+        // données à récupérer lorsque ce lien est appelé
         loader: async ({ params }) => {
           let res = await listQuestion.getResponse({'id' : params.id})
           return res.data
@@ -41,6 +45,7 @@ const router = createBrowserRouter([
       {
         path: "/response/:encoded",
         element: <AnswerView />,
+        // données à récupérer lorsque ce lien est appelé
         loader: async ({ params }) => {
           let res = await listAnswerByUser.getResponse({'encoded' : params.encoded})
           return res.data
@@ -52,7 +57,9 @@ const router = createBrowserRouter([
     path : "/administration",
     element : <AdminLayout />,
     errorElement:<NotFound />,
+    // données à récupérer lorsque ce lien est appelé
     loader : async () => {
+      // si l'utilisateur n'est pas connecté le rediriger vers login
       if(!localStorage.getItem("BigScreenToken")){
         return  redirect("/login")
       }
@@ -60,6 +67,7 @@ const router = createBrowserRouter([
       return res.data;
       
     },
+    // Déconnexion de l'utilisateur
     action : async  () => {
       let res = await logout.getResponse({},{
         'email' : localStorage.getItem("BigScreenEmail")
@@ -75,6 +83,7 @@ const router = createBrowserRouter([
       {
         path: "questions",
         element: <QuestionView/>,
+        // données à récupérer lorsque ce lien est appelé
         loader : async () => {
           let res = await listQuestion.getResponse({id : localStorage.getItem("BigScreenActiveSurvey") })
           return res.data;
@@ -83,6 +92,7 @@ const router = createBrowserRouter([
       {
         path: "responses/:page",
         element: <AnswerAdminView/>,
+        // données à récupérer lorsque ce lien est appelé
         loader : async ({params}) => {
           let res = await listAnswer.getResponse({surveyId : localStorage.getItem("BigScreenActiveSurvey") , page : params.page })
           
@@ -99,6 +109,7 @@ const router = createBrowserRouter([
     path : "/login",
     errorElement:<NotFound />,
     element : <LoginView />,
+    // Connexion
     action : async  ({request}) => {
       const formData = await request.formData()
       const LoginData = Object.fromEntries(formData);

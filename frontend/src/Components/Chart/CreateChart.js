@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import MultiChart from './Chart';
 import { listQuestion } from '../../Services/Route';
 
+
+// Ce composant permet de créer un chart 
+
 const CreateChart = () => {
     const [questions, setquestion] = useState([]);
     const [loading, setloading] = useState(false);
@@ -12,7 +15,6 @@ const CreateChart = () => {
     const selectType = useRef(null)
 
     const handleClick = () => {
-        console.log([selectYarstick.current.value,selectType.current.value]);
         setchartData([selectYarstick.current.value,selectType.current.value])
     }
 
@@ -27,6 +29,7 @@ const CreateChart = () => {
     }
 
     useEffect(() => {
+        // récupérer les questions du sondage lorsque le composant est monté
         getQuestion()
     }, []);
 

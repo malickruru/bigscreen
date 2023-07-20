@@ -7,14 +7,14 @@ export const randomColor = (alpha) => {
     return 'rgba(' + red + ', ' + green + ', ' + blue + ', ' + alpha + ')';
   }
   
-  // générer un tableau de couleur àléatoires
-  export  function randomColorArray(nombreCouleurs,alpha) {
-      var tableauCouleurs = [];
-    
-      for (var i = 0; i < nombreCouleurs; i++) {
-        tableauCouleurs.push(randomColor(alpha));
-      }
-    
-      return tableauCouleurs;
+// générer un tableau de couleur àléatoires
+export  function randomColorArray(nombreCouleurs,alpha) {
+    var tableauCouleurs = [];
+  
+    for (var i = 0; i < nombreCouleurs; i++) {
+      tableauCouleurs.push(randomColor(alpha));
     }
+  
+    return tableauCouleurs;
+  }
     

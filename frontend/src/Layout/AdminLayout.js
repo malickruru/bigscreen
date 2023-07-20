@@ -4,8 +4,12 @@ import { ReactComponent as BigScreenLogo } from '../Assets/Images/BigScreenLogo.
 import { activeSurvey } from '../Utils/ActiveSurvey';
 
 
+// layout de l'interface administrateur
 const AdminLayout = () => {
+    // objet sondage 
     const surveys = useLoaderData();
+
+    // déstructurer l'objet location est récupérer pathname qui correspond à l'url
     const location = useLocation();
     const {hash,pathname,search} = location
     
@@ -56,6 +60,7 @@ const AdminLayout = () => {
                                     <span className=' text-slate-400'>sondage actif</span>
                                     <h1 className='text-lg '>{activeSurvey(surveys).title}</h1>
                                     <select onChange={(e) => {
+                                        // changer de façon global le sondage analisé
                                         localStorage.setItem("BigScreenActiveSurvey",e.target.value)
                                         window.location.reload()
                                     }} className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">

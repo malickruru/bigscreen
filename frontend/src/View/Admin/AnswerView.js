@@ -3,14 +3,19 @@ import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 
 
 
-
+// vue présentant l'ensemble des réponses
 export const AnswerView = () => {
+    // ensemble des réponses
     const data = useLoaderData()
+    // paramètre de l'url
     const params = useParams()
+    // méthode permettant de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
 
+    // index des questions
     const [ids, setIds] = useState([])
 
+    // récupérer l'index des question
     const getIds = () => {
         if(!data.answers[0]){
             return []
@@ -21,6 +26,7 @@ export const AnswerView = () => {
         setIds(getIds())
     }, []);
 
+    // masquer ou afficher une question
     const handleCheckboxChange = (id) => {
         if (ids.includes(id)) {
             // Si l'ID est déjà dans le tableau, on le retire
@@ -33,6 +39,7 @@ export const AnswerView = () => {
         }
     };
 
+    // masquer ou afficher toutes les questions
     const handleAllCheckboxChange = () => {
         if (ids.length == getIds().length) {
             // Si tout est sélectionner tout décocher
@@ -43,6 +50,7 @@ export const AnswerView = () => {
         }
     };
 
+    // aller à la page précédente
     const handlePreviousPage = () => {
         if (params.page == 1) {
             return
@@ -51,6 +59,7 @@ export const AnswerView = () => {
         navigate("../responses/" + previous)
     }
 
+    // aller à la page suivante
     const handleNextPage = () => {
         if (params.page == data.totalPages) {
             return

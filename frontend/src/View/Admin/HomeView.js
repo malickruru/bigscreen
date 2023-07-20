@@ -3,10 +3,12 @@ import MultiChart from '../../Components/Chart/Chart';
 import RadarChart from '../../Components/Chart/RadarChart';
 import CreateChart from '../../Components/Chart/CreateChart';
 
+// page d'accueil de l'interface admin
 export const HomeView = () => {
     return (
         <>
             {
+                // si  le premier sondage est actif , afficher les graphes personnalisés
                 localStorage.getItem("BigScreenActiveSurvey") == 1
                 &&
                 <><h1 className='text-3xl text-slate-200 text-center my-10'>Résultats du sondage</h1>

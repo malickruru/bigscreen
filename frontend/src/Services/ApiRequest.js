@@ -1,5 +1,4 @@
-// cette classe permet d'isoler le code permettant de faire 
-// une requete afin de le rappeler plus aisement dans les composant vue
+// cette classe permet d'isoler le code permettant d'effectuer une requête afin de le rappeler plus aisement dans les composants
 
 class ApiRequest {
 
@@ -11,9 +10,6 @@ class ApiRequest {
         this.bodyContent = {} // corps de la requête (vide par défaut)
         this.header = header
     }
-
-    // cette méthode retourne les entêtes 
-
 
 
     // cette méthode retourne le corps
@@ -32,7 +28,7 @@ class ApiRequest {
         if(this.header.includes('JSON')){
             option.headers.append("Content-Type", "application/json");
         }
-        // method
+        // methode
         option.method = this.method;
         //body
         if (this.HasBody) {

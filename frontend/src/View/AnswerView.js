@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 
+// vue permettant à un utilisateur de visionner ces réponses
 const AnswerView = () => {
+    // listes des réponses
     const answers = useLoaderData()
     return (
         <div className="container mx-auto  p-5 mt-24   relative">

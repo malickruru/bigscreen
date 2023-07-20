@@ -1,4 +1,4 @@
-function estEmailValide(email) {
+function isMailValid(email) {
     // Vérification de la présence d'un "@" et d'un "."
     if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
         return false;
@@ -17,6 +17,7 @@ function estEmailValide(email) {
     return true;
 }
 
+// valider les données d'un formulaire
 
 export const Validate = (value, rule, name = '') => {
     // required
@@ -29,7 +30,7 @@ export const Validate = (value, rule, name = '') => {
 
     switch (rule) {
         case 'email':
-            if (estEmailValide(value)) {
+            if (isMailValid(value)) {
                 return { 'error': false }
             } else {
                 return {

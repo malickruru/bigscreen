@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from "framer-motion";
 
 
+//  message de succès
+
 const Success = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (
         <motion.div

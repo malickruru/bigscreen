@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import {ReactComponent as BigScreenLogo} from '../Assets/Images/BigScreenLogo.svg'  ;
 
+// layout de l'interface client
 const CustomerLayout = () => {
     return (
         <>
