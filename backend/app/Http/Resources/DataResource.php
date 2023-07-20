@@ -8,7 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DataResource extends JsonResource
-{
+{    
+    /**
+     * DataRessource étend du modèle question
+     *
+     * @param  Question $question
+     * 
+     */
     function __construct(Question $question)
     {
         parent::__construct($question);
@@ -20,6 +26,7 @@ class DataResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // grouper les réponses d'une question par choix
         $counts = collect($this->answers)->countBy(function ($item) {
             return $item->answer_value;
         });

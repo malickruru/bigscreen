@@ -9,10 +9,12 @@ use Illuminate\Database\Seeder;
 class QuestionSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Créer les questions du premier sondage 
      */
     public function run(): void
     {
+        // tableau de question du premier sondage
+        
         $questions = [
             [
                 'corps' => 'Votre adresse mail ?',

@@ -12,13 +12,24 @@ use Illuminate\Support\Facades\Hash;
 class AnswerSeeder extends Seeder
 {
     /**
-     * Créer 20 réponses par utilisateurs
+     * Créer 20 réponses par utilisateurs pour le premier sondage
      */
     public function run(): void
     {
+       
+         /**
+         * AnswerData
+         *
+         * Générer une réponse en fonction de son type
+         * 
+         * @param  Question $question la question à répondre
+         * @param  User $user l'utilisateur qui répond
+         * @return Array<mixed> un tableau avec le contenu de la réponse
+         */
 
         function AnswerData(Question $question, User $user)
         {
+            
             switch ($question->type) {
                 case 'A':
                     return [
@@ -26,48 +37,49 @@ class AnswerSeeder extends Seeder
                     ];
                 case 'C':
                     return [
-                        'answer_value' => collect([1,2,3,4,5])->random(),
+                        'answer_value' => collect([1, 2, 3, 4, 5])->random(),
                     ];
                 default:
                     if ($question->yardstick == 'email') {
                         return [
                             'answer_value' => $user->email,
                         ];
-                    }else if($question->yardstick == 'âge'){
+                    } else if ($question->yardstick == 'âge') {
                         return [
                             'answer_value' => rand(18, 65),
                         ];
-                    }else if($question->yardstick == 'profession'){
+                    } else if ($question->yardstick == 'profession') {
                         return [
                             'answer_value' => fake()->jobTitle,
                         ];
-                    }else if($question->yardstick == 'Besoins future'){
+                    } else if ($question->yardstick == 'Besoins future') {
                         return [
                             'answer_value' => fake()->sentence(),
                         ];
                     }
-                
             }
         }
 
-        User::all()->each(function (User $customer){
+        User::all()->each(function (User $customer) {
             foreach (Question::all() as $question) {
                 Answer::create(
                     array_merge(
-                        ["question_id" => $question->id,
-                        "user_id" => $customer->id] ,
-                        AnswerData( $question, $customer))
+                        [
+                            "question_id" => $question->id,
+                            "user_id" => $customer->id
+                        ],
+                        AnswerData($question, $customer)
+                    )
                 );
             }
-            
-            $customer->surveys()->attach(1,[
+
+            $customer->surveys()->attach(1, [
                 'created_at' => now(),
                 // pour créer des urls uniques, encoder l'email et l'id du sondage
                 //  ex : email|1
                 // la valeur de cet encodage sera passé en parametre lors qu'un utilisateur voudra récupérer ses réponses
-                'answer_url' => base64_encode($customer->email.'|'.'1')
+                'answer_url' => base64_encode($customer->email . '|' . '1')
             ]);
-        }); 
-
+        });
     }
 }

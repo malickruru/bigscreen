@@ -33,9 +33,17 @@ class Handler extends ExceptionHandler
         });
     }
 
-    // ici la fonction render change le comportement par défaut 
-    // en retournant des réponses http personnalisée lorsqu'une erreur se produit 
-
+     
+    
+    /**
+     * render
+     *
+     * ici la fonction render change le comportement par défaut 
+     * en retournant des réponses http personnalisée lorsqu'une erreur se produit 
+     * @param  mixed $request
+     * @param  Throwable $exception
+     * @return void
+     */
     public function render($request, Throwable  $exception)
     {
         
@@ -48,6 +56,7 @@ class Handler extends ExceptionHandler
             // cette erreur se produit lorsque la validation échoue
             }else if ($exception instanceof ValidationException) {
                 return $this->sendErrorResponse($exception->getMessage(),422);
+            // cette erreur se produit lorsque qu'il y'a une erreur dans la requête sql
             }else if ($exception instanceof QueryException) {
                 return $this->sendErrorResponse($exception->getMessage(),500);
             }  

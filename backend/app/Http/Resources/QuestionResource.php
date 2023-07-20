@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class QuestionResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Ressource à retourner pour les questions
      *
      * @return array<string, mixed>
      */

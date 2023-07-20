@@ -12,9 +12,13 @@ use Illuminate\Http\Request;
 class SurveyController extends Controller
 {
     use ApiResponseTrait;
+    
     /**
      * Méthode "index" pour afficher tous les sondages :
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
+    
     public function index()
     {
         return $this->sendSuccessResponse(Survey::all());
@@ -22,14 +26,22 @@ class SurveyController extends Controller
 
     /**
      * Méthode "isOnline" pour afficher tous les sondages en lignes:
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
+
     public function isOnline()
     {
         return $this->sendSuccessResponse(Survey::where('isOnline','=',1)->get());
     }
 
+    
     /**
      * Méthode "isSurveyCompleted" pour verifier si un utilisateur a déja répondu au sondage:
+     *
+     * @param  Request $request -email de l'utilisateur
+     * @param  int $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function isSurveyCompleted(Request $request, int $id)
     {
@@ -38,7 +50,7 @@ class SurveyController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        // inserer l'utilistateur dans la bd si il n'existe pas
+        
         if (!$user) {
             return $this->sendSuccessResponse(['hasCompleted'  => false],'c\'est la première fois que vous répondez au sondage');
         }else{
@@ -54,6 +66,10 @@ class SurveyController extends Controller
 
     /**
      * Méthode "store" pour enregistrer un nouveau sondage dans la base de données :
+     *
+     * @param  Request $request - titre du sondage (title)
+     * - description du sondage (description)
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -76,7 +92,13 @@ class SurveyController extends Controller
     }
 
     /**
+     * 
+     */    
+    /**
      * Méthode mettre un sondage test en ligne:
+     *
+     * @param  int $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function releaseSurvey(int $id)
     {
@@ -90,8 +112,14 @@ class SurveyController extends Controller
         return $this->sendSuccessResponse($survey,'Le sondage est désormais visible pour le grand public.'); 
     }
 
+    
     /**
-     * Méthode mettre un sondage test en ligne:
+     * Méthode mettre à jour un sondage:
+     *
+     * @param  Request $request - titre du sondage (title)
+     * - description du sondage (description)
+     * @param  int $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request,int $id)
     {
@@ -103,8 +131,12 @@ class SurveyController extends Controller
         return $this->sendSuccessResponse($survey,'Le sondage a été modifié avec succès'); 
     }
 
+
     /**
-     * Méthode mettre un sondage test en ligne:
+     * Méthode supprimer un sondage :
+     *
+     * @param  int $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(int $id)
     {

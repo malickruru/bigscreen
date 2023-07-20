@@ -12,13 +12,12 @@ class QuestionController extends Controller
 {
     use ApiResponseTrait;
 
-   
-
+    
     /**
      * Cette methode retourne toutes les questions d'un sondage en ligne
-     * 
-     * @param
-     * id du sondage voulu
+     *
+     * @param  int $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(int $id){
         $survey = Survey::findOrFail($id);
@@ -28,11 +27,12 @@ class QuestionController extends Controller
         return $this->sendSuccessResponse(QuestionResource::collection($survey->questions));
     }
 
+    
     /**
-     * Cette methode retourne toutes les questions d'un sondage 
-     * 
-     * @param
-     * id du sondage voulu
+     * Cette methode retourne toutes les questions d'un sondage ,elle n'est accessible que pour l'administrateur
+     *
+     * @param  mixed $id - id du sondage
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getUnreleasedQuestion(int $id){
         $survey = Survey::findOrFail($id);
@@ -41,6 +41,14 @@ class QuestionController extends Controller
 
     /**
      * Méthode "store" pour enregistrer une nouvelle question dans la base de données :
+     *
+     * @param  Request $request - id du sondage (survey_id)
+     * - libellé de la question (text)
+     * - critère étudié par le question (yardstick)
+     * - valeur attendu pour la réponse (validateAs)
+     * - type de la question (type)
+     * - ensemble des choix lié à une question (choices)
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -68,7 +76,10 @@ class QuestionController extends Controller
     }
 
     /**
-     * Méthode  pour supprimer une  question :
+     *  Méthode  pour supprimer une  question :
+     *
+     * @param  int $id - id de la question
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(int $id)
     {

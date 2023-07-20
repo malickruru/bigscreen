@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Créer un administrateur et 100 client
+     *
      */
     public function run(): void
     {

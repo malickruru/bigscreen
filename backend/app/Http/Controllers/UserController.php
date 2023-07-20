@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     use ApiResponseTrait;
+    
     /**
      * Inscrire l'administrateur
-     * 
-     * @param
-     * email 
-     * password
+     *
+     * @param  Request $request - email et mot de passe de l'admin
+     * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
     {
@@ -32,10 +32,10 @@ class UserController extends Controller
     }
     
     /**
-     * Déconnexion
-     * 
-     * @param
-     * email 
+     * Déconnecter l'administrateur
+     *
+     * @param  Request $request - email de l'admin
+     * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {

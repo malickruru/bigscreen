@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Les attributs qui sont assignables en masse.
      *
      * @var array<int, string>
      */
@@ -44,41 +46,51 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
     /**
      * Relation plusieurs à plusieurs entre les utilisateurs et les sondages
-     * retourne tous les sondages auquels un utilisateur a répondu
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany retourne tous les sondages auquels un utilisateur a répondu
      */
-
-    public function surveys(){
-        return $this->belongsToMany(Survey::class,'pivot_user_survey');
+    public function surveys()
+    {
+        return $this->belongsToMany(Survey::class, 'pivot_user_survey');
     }
+
+
 
     /**
      * Relation un à un entre un utilisateurs et son role
-     * retourne le role de l'utilisateur
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne retourne le role de l'utilisateur
      */
-
-     public function role(){
+    public function role()
+    {
         return $this->HasOne(Role::class);
     }
 
+    
     /**
-     * Relation un à plusieur entre un utilisateurs et ses réponses
-     * retourne les réponses d'un utilisateur
+     * Relation un à plusieurs entre un utilisateurs et ses réponses
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany retourne les réponses d'un utilisateur
      */
-
-     public function answers(){
+    public function answers()
+    {
         return $this->hasMany(Answer::class);
     }
 
     /**
-     * retourne les réponses d'un utilisateur en fonction d'un sondage
+     * Réponses d'un utilisateur en fonction d'un sondage
+     *
+     * @param  int $survey_id
+     * @return Collection retourne les réponses d'un utilisateur en fonction d'un sondage
      */
-
-     public function answersBySurvey($survey_id){
-        $questions = Survey::findOrFail($survey_id)->questions->map(function ($question){
+    public function answersBySurvey(int $survey_id)
+    {
+        $questions = Survey::findOrFail($survey_id)->questions->map(function ($question) {
             return $question->id;
         });
-        return $this->hasMany(Answer::class)->whereIn('question_id',$questions)->get();
+        return $this->hasMany(Answer::class)->whereIn('question_id', $questions)->get();
     }
 }

@@ -6,18 +6,9 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
-// routes public
+
+// routes publiques
 // * user
 Route::post('/login', [UserController::class,'login']);
 Route::post('/logout', [UserController::class,'logout']);
@@ -30,7 +21,7 @@ Route::get('/answers/{encoded}', [AnswerController::class,'answersByUserAndSurve
 Route::get('/surveys/online', [SurveyController::class,'isOnline']);
 Route::post('/survey/{id}/isCompleted', [SurveyController::class,'isSurveyCompleted']);
 
-// routes privé
+// routes privées
 Route::group(['middleware' => ['auth:sanctum']], function () {
         // * survey
         Route::get('/surveys', [SurveyController::class,'index']);

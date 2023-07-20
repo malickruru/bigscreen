@@ -1,7 +1,14 @@
 <?php 
 namespace App\Http\Traits;
 
-trait ApiResponseTrait {
+trait ApiResponseTrait {    
+    /**
+     * retourne un message d'erreur
+     *
+     * @param  String $message
+     * @param  int $statusCode
+     * @return \Illuminate\Http\JsonResponse 
+     */
     public function sendErrorResponse($message, $statusCode) {
         return response()->json([
             'success' => false,
@@ -9,6 +16,14 @@ trait ApiResponseTrait {
         ], $statusCode);
     }
 
+    /**
+     * retourne un message de succès
+     *
+     * @param  Array<mixed> $data donnée récupérée
+     * @param  String $message
+     * @param  int $statusCode
+     * @return \Illuminate\Http\JsonResponse 
+     */
     public function sendSuccessResponse($data, $message = '', $statusCode = 200) {
         $response = [
             'success' => true,

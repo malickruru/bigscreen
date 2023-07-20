@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Cette factory retourne un utilisateur avec un mail aléatoire & un role de client
      *
      * @return array<string, mixed>
      */

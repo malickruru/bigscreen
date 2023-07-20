@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class ChoiceCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * Collection des choix
      *
      * @return array<int|string, mixed>
      */

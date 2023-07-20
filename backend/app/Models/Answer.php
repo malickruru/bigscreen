@@ -8,26 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     use HasFactory;
-
+    
+    /**
+     * Les attributs qui sont assignables en masse.
+     *
+     * @var array<String>
+     */
     protected $fillable = [
         'question_id',
         'user_id',
         'answer_value'
     ];
 
+   
+    
     /**
      * Relation un à plusieurs entre une question ces réponses
-     * retourne tous la question parent à la réponse 
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo retourne tous la question parent à la réponse 
      */
-
     public function question(){
         return $this->belongsTo(Question::class);
     }
+    
     /**
      * Relation un à un entre une réponse de type A et le choix auquel elle est liée
-     * retourne l'option choisie de la réponse  
+     *
+     * @return mixed Retourne l'option choisie de la réponse  
      */
-
     public function choice(){
         if ($this->question->type == 'A') {
             return $this->hasOne(Choice::class,'id','answer_value');

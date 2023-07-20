@@ -8,7 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class ChoiceResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+     * Ressource pour les choix
      *
      * @return array<string, mixed>
      */
