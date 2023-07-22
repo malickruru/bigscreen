@@ -3,7 +3,6 @@ import CustomerLayout from '../Layout/CustomerLayout'
 import SurveyView from '../View/SurveyView.js';
 import AnswerView from '../View/AnswerView.js';
 import { addSurvey, listAnswer, listAnswerByUser, listQuestion, listSurvey, login, logout, onlineSurvey } from '../Services/Route';
-import HomeView from '../View/HomeView';
 import AdminLayout from '../Layout/AdminLayout';
 import LoginView from '../View/LoginView';
 import{ HomeView as HomeAdminView} from '../View/Admin/HomeView';
@@ -22,16 +21,6 @@ const router = createBrowserRouter([
     // Composant afficher en cas d'url incorrect
     errorElement:<NotFound />,
     children: [
-      {
-        path: "/",
-        element: <HomeView />,
-        // données à récupérer lorsque ce lien est appelé
-        loader: async () => {
-          let res = await onlineSurvey.getResponse()
-          return res.data
-        }
-
-      },
       {
         path: "/survey/:id",
         element: <SurveyView />,

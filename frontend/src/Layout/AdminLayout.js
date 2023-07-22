@@ -16,17 +16,17 @@ const AdminLayout = () => {
     return (
         <>
             {/* drawer */}
-            <div className='h-screen flex flex-row'>
-                <div className="drawer h-full  basis-1/5  lg:drawer-open">
+            <div className='h-screen flex flex-row relative'>
+                <div className="drawer  fixed md:relative  md:basis-1/5  lg:drawer-open">
                     <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                    <div className="drawer-content flex flex-col items-center justify-center">
+                    <div className="drawer-content flex flex-col items-start justify-center bg-transparent  ">
                         {/* Page content here */}
-                        <label htmlFor="my-drawer-2" className="btn btn-base-100 drawer-button lg:hidden ">Open drawer</label>
+                        <label htmlFor="my-drawer-2" className="btn bg-[#111827] text-2xl border-none  lg:hidden "><i class="bi bi-list"></i></label>
 
                     </div>
-                    <div className="drawer-side ">
+                    <div className="drawer-side z-30">
                         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                        <ul className="menu p-4 w-80 h-full bg-gray-800 relative ">
+                        <ul className="menu z-40 p-4 w-80 h-full bg-gray-800 relative ">
                             {/* Sidebar content here */}
                             <div className='flex justify-center'>
                                 <BigScreenLogo fill="#fff" width={250} />
@@ -86,7 +86,7 @@ const AdminLayout = () => {
                     </div>
                 </div>
                 {/* main */}
-                <div className='h-full bg-[#111827] basis-4/5 overflow-auto'><Outlet/></div>
+                <div className='h-full bg-[#111827] basis-full md:basis-4/5 overflow-auto'><Outlet/></div>
             </div>
         </>
     );

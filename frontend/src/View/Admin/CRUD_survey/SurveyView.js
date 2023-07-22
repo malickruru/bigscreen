@@ -18,16 +18,16 @@ const SurveyQuestion = ({ id,onDelete,onAdd }) => {
         }
     }
     return (
-        <div className="collapse bg-[#111827] collapse-arrow rounded-none  ">
+        <div className="collapse bg-[#111827] collapse-arrow rounded-none static md:relative">
             <input type="checkbox" onChange={getQuestion} />
-            <div className="collapse-title text-xl font-medium">
+            <div className="collapse-title text-xl font-medium static md:relative ">
                 Questions du sondage
             </div>
-            <div className="collapse-content flex justify-center items-center flex-col">
+            <div className="collapse-content flex justify-center items-center flex-col overflow-x-auto">
                 <button onClick={() => {onAdd(5,{surveyId : id})}} className='btn bg-blue-600 hover:bg-blue-700 text-white'>Ajouter +</button>
                 {
                     !questions ? <span className="loading loading-spinner "></span> :
-                        <table className="table w-full text-black my-5" >
+                        <table className="table  w-full text-black my-5 ml-16 md:ml-0 " >
                             <thead>
                                 <tr className='bg-gray-700 text-gray-400 '>
 
@@ -134,7 +134,7 @@ export const SurveyView = () => {
             <button  className='btn  bg-blue-700 hover:bg-blue-800 text-white  my-4'>
                 Ajouter un sondage +
             </button>
-            <div className="card w-10/12 bg-gray-800 border-gray-700  shadow-xl my-4 " >
+            <div className="card static w-10/12 bg-gray-800 border-gray-700  shadow-xl my-4 " >
                 <div className="card-body animate-pulse">
                     <div className="flex-1 space-y-6 py-1">
                         <div className="h-2 bg-slate-700 rounded"></div>
@@ -166,7 +166,7 @@ export const SurveyView = () => {
     }
 
 
-    return <div className='container mx-auto p-7 flex flex-col justify-center items-center relative'>
+    return <div className='container mx-auto md:p-7 flex flex-col justify-center items-center md:relative'>
         {/* notification */}
         <AnimatePresence >
             {
@@ -190,29 +190,30 @@ export const SurveyView = () => {
             surveys.map((survey) => {
                 return survey.isOnline
                     ?
-                    <div className="card w-10/12 bg-gray-800 border-gray-700  shadow-xl my-4" key={survey.id}>
+                    <div className="card md:w-10/12 w-11/12  bg-gray-800 border-gray-700  shadow-xl my-4 static" key={survey.id}>
                         <div className="card-body">
                             <div className='flex justify-between py-5'>
                                 <h2 className="card-title">{survey.title}</h2>
                                 <div><div className=' rounded-full h-2 w-2 bg-green-600 inline-block'></div> En production</div>
                             </div>
                             <p>{survey.description}</p>
+                            <p>Lien : <a target='_blank' className='text-blue-500 hover:text-blue-300 ' href={'../survey/'+survey.id}>http://localhost:3000/survey/{survey.id}</a> </p>
                             <span className=' italic text-base-content'>{FormatedDate(survey.created_at)}</span>
                         </div>
                     </div>
                     :
-                    <div className="card w-10/12  bg-gray-800 border-gray-700  shadow-xl my-4" key={survey.id}>
+                    <div className="card md:w-10/12 w-11/12  bg-gray-800 border-gray-700 static shadow-xl my-4" key={survey.id}>
                         <div className="card-body">
                             <div className='flex justify-between py-5'>
                                 <h2 className="card-title">{survey.title}</h2>
                                 <div><div className=' rounded-full  h-2 w-2 inline-block bg-blue-400'></div> En dévelopement</div>
                             </div>
-                            <div className='flex '>
-                                <p className='w-1/2'>{survey.description}</p>
-                                <div className='w-1/2 flex-wrap'>
+                            <div className='flex flex-col md:flex-row'>
+                                <p className='md:w-1/2'>{survey.description}</p>
+                                <div className='md:w-1/2 flex-wrap'>
                                     <button onClick={() => {openModal(3,survey)}}  className='btn  bg-blue-700 hover:bg-blue-800 text-white  w-full my-2'>Mettre le sondage en ligne</button>
                                     <button onClick={() => {openModal(1,survey)}} className='btn text-white bg-red-600 hover:bg-red-700 mr-1 w-[49%]'>Supprimer</button>
-                                    <button onClick={() => {openModal(2,survey)}} className='btn  bg-blue-700 hover:bg-blue-800 text-white  w-[49%] ml-1'>Modifier</button>
+                                    <button onClick={() => {openModal(2,survey)}} className='btn  bg-blue-700 hover:bg-blue-800 text-white  w-[49%] md:ml-1'>Modifier</button>
                                 </div>
                             </div>
                             <div className='divider'></div>

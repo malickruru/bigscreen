@@ -7,7 +7,7 @@ const QuestionView = () => {
     const questions = useLoaderData();
     return (
         <><h1 className='text-3xl text-slate-200 text-center my-10'>Questions du sondage</h1><div className="flex justify-center items-center py-5">
-            <table className="table w-3/4 text-gray-400">
+            <table className="table static w-3/4 text-gray-400">
                 {/* head */}
                 <thead>
                     <tr className='bg-gray-700 text-gray-400 text-lg'>

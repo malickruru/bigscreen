@@ -48,7 +48,7 @@ const AnswerType = ({ question, next , value ,previous}) => {
         default:
             if (question.validateAs != 'textarea') {
                 return <>
-                    <input ref={input} type={question.validateAs} placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-3xl border-b-2 border-solid min-w-1/2' defaultValue={value}/>
+                    <input ref={input} type={question.validateAs} placeholder={'Entrez votre ' + question.yardstick} className='text-white my-6 bg-black py-5 outline-none  border-b-white text-2xl md:text-3xl border-b-2 border-solid min-w-1/2' defaultValue={value}/>
                     <div className=' mt-4'>
                         <button onClick={() => { next(input.current.value) }} className="  btn-square bg-white text-black hover:bg-base-content mr-3">OK</button>
                         <span className='italic'>Appuyer sur entrer</span>
@@ -81,15 +81,15 @@ const Question = ({ index, question, next,value ,previous}) => {
         initial={{ opacity: 0 , y : 10 }}
         animate={{ opacity: 1 , y:0 , transition : {type:'tween'}}}
         exit={{ opacity: 0 ,y:-10 ,transition: { delay: delay}}}
-        className='flex justify-center items-center flex-col'
+        className='flex justify-center items-center flex-col '
         >
             <div className='flex  items-center justify-center w-full mb-4 '>
-                <p className='text-white mr-2 text-xl'>
+                <p className='text-white mr-2 text-xl '>
                     <span > {index} </span>
                     <i className="bi bi-arrow-right m-2"></i>
                 </p>
 
-                <p className='text-white text-xl'>{question.text}</p>
+                <p className='text-white text-xl max-w-[70vw]'>{question.text}</p>
             </div>
             <AnswerType question={question} next={next} value={value} previous={previous} />
         </motion.div>

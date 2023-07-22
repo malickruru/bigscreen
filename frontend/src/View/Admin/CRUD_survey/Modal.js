@@ -25,7 +25,7 @@ const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     return (
         <div className='fixed backdrop-blur-sm z-10 top-0 bottom-0 right-0 left-0 bg-black/30 flex justify-center items-center' onClick={onClose}>
             {/* <!-- Modal content --> */}
-            <div onClick={(e) => e.stopPropagation()} className="relative   rounded-lg shadow w-1/3 bg-gray-700">
+            <div onClick={(e) => e.stopPropagation()} className="relative   rounded-lg shadow w-full md:w-1/3 bg-gray-700">
                 {/* <!-- Modal header --> */}
                 <div className="flex items-start justify-between p-4 border-b rounded-t border-gray-600">
                     <h3 className="text-xl  font-semibold text-white">

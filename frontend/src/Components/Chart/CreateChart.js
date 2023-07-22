@@ -37,9 +37,9 @@ const CreateChart = () => {
     return (
         <div className='container p-5 mx-auto flex flex-col justify-center items-center '>
             <h1 className='text-3xl text-slate-200 text-center mb-10'>Générer un graphique</h1>
-            <div className='flex justify-around items-end w-full'>
+            <div className='flex flex-col md:flex-row justify-around md:items-end w-full '>
                 {/* critere */}
-                <div>
+                <div className='my-3'>
                     <label className="label">
                         <span className="label-text text-slate-200">Choisir un critère à étudier</span>
                     </label>
@@ -57,7 +57,7 @@ const CreateChart = () => {
                     </select>
                 </div>
                 {/* type de chart */}
-                <div>
+                <div className='my-3'>
                     <label className="label">
                         <span className="label-text text-slate-200">Choisir un type de graphique</span>
                     </label>
@@ -71,15 +71,12 @@ const CreateChart = () => {
                     </select>
                 </div>
                 
-                <button onClick={handleClick} class="btn bg-slate-200 text-black hover:bg-slate-200 hover:scale-95 btn-sm rounded-none">Générer le graphique</button>
-                
-                
-
+                <button onClick={handleClick} class="btn my-3 bg-slate-200 text-black hover:bg-slate-200 hover:scale-95 btn-sm rounded-none">Générer le graphique</button>
             </div>
             {
                 (id && type) 
                 &&
-                <div className='w-2/3'>
+                <div className='w-full md:w-2/3'>
                     <MultiChart id={id} type={type} key={id+type}/>
                 </div> 
             }

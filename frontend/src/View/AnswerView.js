@@ -6,12 +6,12 @@ const AnswerView = () => {
     // listes des réponses
     const answers = useLoaderData()
     return (
-        <div className="container mx-auto  p-5 mt-24   relative">
+        <div className="container mx-auto  md:p-5 mt-24   md:relative">
             {
                 answers.map((answer,key) => {
-                    return <div className='mb-16 ml-12'>
-                        <div className='flex items-center'>
-                            <div className='w-16 h-16 rounded-full bg-white text-black text-lg flex items-center justify-center'>
+                    return <div className='mb-16 ml-12 ' key={key}>
+                        <div className='flex items-center  md:my-0'>
+                            <div className='w-12 h-10 md:w-16 md:h-16 rounded-full p-0 bg-white text-black md:text-lg flex items-center justify-center'>
                                 {key + 1}
                             </div>
                             <div className='ml-5 p-5 h-24 w-full'>
@@ -21,7 +21,7 @@ const AnswerView = () => {
                                 <div class="divider"></div>
                             </div>
                         </div>
-                        <div className='p-5 text-xl text-base-400'>
+                        <div className='p-5 text-xl text-center md:text-left text-base-400 mt-12 md:mt-0'>
                             {answer.answer}
                         </div>
 
