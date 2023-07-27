@@ -1,6 +1,6 @@
 import React from 'react';
 
-// vue de chargement des pages lorsqu'il y a une requête en cour
+// Ce composant représente la vue de chargement affichée lorsque l'application effectue une requête en cours de traitement.
 const LoaderView = () => {
     return (
         <div className=" flex justify-center items-center flex-col h-screen">

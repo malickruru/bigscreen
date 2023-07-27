@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 
 
+// Ce composant représente la vue qui présente l'ensemble des réponses reçus pour un sondage.
 
-// vue présentant l'ensemble des réponses
+
 export const AnswerView = () => {
     // ensemble des réponses
     const data = useLoaderData()

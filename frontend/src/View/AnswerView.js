@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-// vue permettant à un utilisateur de visionner ces réponses
+// Ce composant représente la vue permettant à un utilisateur de visualiser ses réponses à un sondage.
+
 const AnswerView = () => {
     // listes des réponses
     const answers = useLoaderData()

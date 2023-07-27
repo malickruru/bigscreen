@@ -69,7 +69,7 @@ const AnswerType = ({ question, next , value ,previous}) => {
 }
 
 
-// Composant question 
+// Le composant Question est utilisé pour afficher une question spécifique avec son contenu et son type de réponse. Il utilise le composant AnswerType pour afficher le contenu modulable en fonction du type de question.
 
 const Question = ({ index, question, next,value ,previous}) => {
     // délais de l'animation

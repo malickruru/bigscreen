@@ -8,7 +8,10 @@ import { addAnswer, isSurveyCompleted } from '../Services/Route';
 import LoaderView from './LoaderView';
 
 
-// vue présentant un sondage
+// Ce composant représente une vue de sondage où les utilisateurs peuvent répondre à des questions. 
+// Il utilise le composant Question pour afficher chaque question, le composant Error pour afficher les messages d'erreur, 
+// et le composant LoaderView pour afficher un écran de chargement lorsque les données sont en cours de traitement.
+
 const SurveyView = () => {
     // current est l'index de la question en cours
     const [current, setCurrent] = useState(0);

@@ -16,7 +16,7 @@ ChartJS.register(ArcElement,
     RadialLinearScale
 );
 
-// Ce composant retourne un graphique en fonction du type passé en prop
+// Le composant MultiChart retourne un graphique en fonction de la question passé en prop. Il utilise la bibliothèque react-chartjs-2 pour afficher différents types de graphiques tels que Doughnut, Bar, Pie et PolarArea.
 
 const MultiChart = ({ id, type }) => {
     const [[error, errorMessage], seterror] = useState([false, '']);

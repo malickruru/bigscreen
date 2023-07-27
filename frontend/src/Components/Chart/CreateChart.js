@@ -3,8 +3,7 @@ import MultiChart from './Chart';
 import { listQuestion } from '../../Services/Route';
 
 
-// Ce composant permet de créer un chart 
-
+// Ce composant permet de créer et de générer un graphique en fonction des critères et du type de graphique sélectionnés par l'utilisateur. Il utilise le composant MultiChart pour afficher le graphique généré.
 const CreateChart = () => {
     const [questions, setquestion] = useState([]);
     const [loading, setloading] = useState(false);

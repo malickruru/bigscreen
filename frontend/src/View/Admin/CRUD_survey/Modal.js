@@ -3,7 +3,7 @@ import { Children } from 'react';
 import { Validate } from '../../../Utils/Validate';
 import { addQuestion, addSurvey, deleteQuestion, deleteSurvey, editSurvey, releaseSurvey } from '../../../Services/Route';
 
-// Composant popup
+// Ce composant représente une fenêtre modale réutilisable pour afficher des informations ou recueillir des données auprès de l'utilisateur.
 const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     const [loading, setLoading] = useState(false)
 
@@ -56,7 +56,7 @@ const Modal = ({ onClose, title, btnData, children, onsubmit }) => {
     );
 }
 
-// ajout de sondage
+// Ce composant représente une fenêtre modale pour ajouter un nouveau sondage.
 const AddSurvey = ({ onClose, onNotify, onUpdate }) => {
     const [title, settitle] = useState('');
     const [description, setdescription] = useState('');
@@ -101,7 +101,7 @@ const AddSurvey = ({ onClose, onNotify, onUpdate }) => {
 
 }
 
-// supprimer un sondage
+// Ce composant représente une fenêtre modale pour supprimer un sondage.
 const DeleteSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const handleDeleteSurvey = async () => {
         let res = await deleteSurvey.getResponse({ id: surveyData.id }, {})
@@ -129,7 +129,7 @@ const DeleteSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 }
 
 
-// mettre a jour les information d'un sondage
+//  Ce composant représente une fenêtre modale pour modifier les informations d'un sondage existant.
 const EditSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const [title, settitle] = useState(surveyData.title);
     const [description, setdescription] = useState(surveyData.description);
@@ -175,7 +175,7 @@ const EditSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 
 }
 
-// mettre un sondage en ligne
+// Ce composant représente une fenêtre modale pour mettre un sondage en ligne.
 const ReleaseSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
     const handleReleaseSurvey = async () => {
         let res = await releaseSurvey.getResponse({ id: surveyData.id }, {})
@@ -202,7 +202,7 @@ const ReleaseSurvey = ({ onClose, onNotify, onUpdate, surveyData }) => {
 
 }
 
-// supprimer une question
+// Ce composant représente une fenêtre modale pour supprimer une question.
 const DeleteQuestion = ({ onClose, onNotify, onUpdate, questionData }) => {
     const handleDeleteQuestion = async () => {
         let res = await deleteQuestion.getResponse({ id: questionData.id }, {})
@@ -230,7 +230,7 @@ const DeleteQuestion = ({ onClose, onNotify, onUpdate, questionData }) => {
 
 }
 
-// Ajouter une question
+// Ce composant représente une fenêtre modale permettant d'ajouter une nouvelle question.
 const Addquestion = ({ onClose, onNotify, onUpdate, questionData }) => {
     const [text, settext] = useState('');
     const [yardstick, setyardstick] = useState('');

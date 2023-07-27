@@ -4,7 +4,7 @@ import { ReactComponent as BigScreenLogo } from '../Assets/Images/BigScreenLogo.
 import { activeSurvey } from '../Utils/ActiveSurvey';
 
 
-// layout de l'interface administrateur
+// Le composant AdminLayout représente le layout (mise en page) de l'interface administrateur. Il est conçu pour être utilisé comme conteneur pour les pages de l'application côté administrateur.
 const AdminLayout = () => {
     // objet sondage 
     const surveys = useLoaderData();

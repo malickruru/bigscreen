@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from "framer-motion";
 
 
-//  message de succès
+// Le composant Error est utilisé pour afficher un message de succès stylisé à l'écran. Il utilise la bibliothèque framer-motion pour ajouter une animation lors de l'affichage du message de succeès.
 
 const Success = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Cette vue s'affiche lorsque l'url demandée n'existe pas
+// Ce composant représente une vue qui s'affiche lorsque l'URL demandée n'existe pas. Il est utilisé pour afficher une page d'erreur 404 lorsque l'utilisateur accède à une page inexistante.
 const NotFound = () => {
     return (
         <div className='w-full h-full flex items-center md:block'>

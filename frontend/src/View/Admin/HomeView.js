@@ -4,7 +4,7 @@ import RadarChart from '../../Components/Chart/RadarChart';
 import CreateChart from '../../Components/Chart/CreateChart';
 import { listQuestion } from '../../Services/Route';
 
-// page d'accueil de l'interface admin
+// Ce composant représente la page d'accueil de l'interface d'administration.
 export const HomeView = () => {
     const [questionChart, setquestionChart] = useState([]);
 

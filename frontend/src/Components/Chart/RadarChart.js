@@ -13,7 +13,8 @@ ChartJS.register(
     Legend
 );
 
-// Retourne un graphique de type radar
+// Ce composant retourne un graphique de type radar représentant la qualité de l'application. Il utilise le composant Radar de la bibliothèque react-chartjs-2 pour afficher le graphique.
+
 const RadarChart = () => {
     const [[error, errorMessage], seterror] = useState([false, '']);
     const [loading, setloading] = useState(false);

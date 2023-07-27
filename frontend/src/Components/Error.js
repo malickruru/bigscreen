@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from "framer-motion";
 
-//  message d'erreur
+//  Le composant Error est utilisé pour afficher un message d'erreur stylisé à l'écran. Il utilise la bibliothèque framer-motion pour ajouter une animation lors de l'affichage du message d'erreur.
 
 const Error = ({ message,postion = ['top-20'] , AlertWidth = ['w-1/2'] }) => {
     return (

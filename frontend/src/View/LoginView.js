@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Error from '../Components/Error';
 import { Form, useActionData, useSubmit } from 'react-router-dom';
 
-// Vue de connexion du l'administrateur
+// Ce composant représente la vue de connexion de l'administrateur. Il permet à l'administrateur de se connecter en saisissant son adresse e-mail et son mot de passe.
 const LoginView = () => {
     // méthode de soumission du formulaire
     let submit = useSubmit();

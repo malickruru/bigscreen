@@ -6,7 +6,8 @@ import { listQuestion, listSurvey, listUnreleasedQuestions } from '../../../Serv
 import Success from '../../../Components/Success';
 import { AddSurvey, Addquestion, DeleteQuestion, DeleteSurvey, EditSurvey, Modal, ReleaseSurvey } from './Modal';
 
-// Questions d'un sondage
+// Le composant SurveyQuestion est utilisé pour afficher les questions associées à un sondage spécifique. 
+// Il prend en compte l'identifiant du sondage (id) pour récupérer les questions d'un sondage non publiées à partir du serveur .
 const SurveyQuestion = ({ id,onDelete,onAdd }) => {
     const [questions, setquestion] = useState(false);
 
@@ -65,7 +66,7 @@ const SurveyQuestion = ({ id,onDelete,onAdd }) => {
     )
 }
 
-// vue présentant tous les sondages
+// Cette vue présente tous les sondages disponibles.
 export const SurveyView = () => {
 
     const [surveys, setSurvey] = useState([])

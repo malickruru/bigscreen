@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-// vue présentant toutes les questions du sondage
+// Ce composant représente la vue qui affiche toutes les questions d'un sondage.
+// 
 const QuestionView = () => {
     // ensemble des questions
     const questions = useLoaderData();
