@@ -52,9 +52,7 @@ const router = createBrowserRouter([
       if(!localStorage.getItem("BigScreenToken")){
         return  redirect("/login")
       }
-      let res = await onlineSurvey.getResponse()
-      return res.data;
-      
+      return [];
     },
     // Déconnexion de l'utilisateur
     action : async  () => {

@@ -23,7 +23,7 @@ const SurveyView = () => {
     // id du sondage passé en paramètre
     const survey = useParams()
     //resultat du sondage
-    const [[result, answerLink], setResult] = useState(['', ''])
+    const [[result, answerLink], setResult] = useState(['Bienvenue au sondage', ''])
     //question du sondage
     const questions = useLoaderData();
 
@@ -106,6 +106,7 @@ const SurveyView = () => {
     }
 
     
+    
 
     return (
         loading ? <LoaderView /> :
@@ -119,9 +120,11 @@ const SurveyView = () => {
                 </AnimatePresence>
                 <div className={result ? "alert w-11/12 md:w-1/2 " : 'hidden'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-info shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span className='text-lg'>
+                    <span className='text-lg text-center w-full'>
                         {result}
-                        <Link to={'../' + answerLink} className="link link-info">mes reponses</Link>
+                        <br/>
+                        {!answerLink ? <button className='btn mx-auto my-3 text-black bg-white hover:scale-95 hover:text-white' onClick={() => {setResult(['',''])} }>Démarrer</button> : null}
+                        <Link to={'../' + answerLink} className={!answerLink ? 'hidden' : "link link-info" }>mes reponses</Link>
                     </span>
                 </div>
 

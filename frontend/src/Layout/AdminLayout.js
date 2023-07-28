@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, NavLink, Outlet, useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as BigScreenLogo } from '../Assets/Images/BigScreenLogo.svg';
 import { activeSurvey } from '../Utils/ActiveSurvey';
+import { onlineSurvey } from '../Services/Route';
 
 
 // Le composant AdminLayout représente le layout (mise en page) de l'interface administrateur. Il est conçu pour être utilisé comme conteneur pour les pages de l'application côté administrateur.
 const AdminLayout = () => {
     // objet sondage 
-    const surveys = useLoaderData();
+
+    const [surveys, setSurveys] = useState([]);
+    const [loadingsurveys, setloadingSurveys] = useState(false);
+
+    useEffect(() => {
+        getSurveys()
+    }, []);
+
+    // récupérer les surveys
+    const getSurveys = async () => {
+        setloadingSurveys(true)
+        let res = await onlineSurvey.getResponse()
+        setSurveys(res.data)
+        setloadingSurveys(false)
+    }
 
     // déstructurer l'objet location est récupérer pathname qui correspond à l'url
     const location = useLocation();
-    const {hash,pathname,search} = location
-    
+    const { hash, pathname, search } = location
+
     return (
         <>
             {/* drawer */}
@@ -61,14 +76,17 @@ const AdminLayout = () => {
                                     <h1 className='text-lg '>{activeSurvey(surveys).title}</h1>
                                     <select onChange={(e) => {
                                         // changer de façon global le sondage analisé
-                                        localStorage.setItem("BigScreenActiveSurvey",e.target.value)
+                                        localStorage.setItem("BigScreenActiveSurvey", e.target.value)
                                         window.location.reload()
-                                    }} className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">
+                                    }} onClick={getSurveys}
+                                        className="select rounded-none  bg-slate-200 text-base-100 my-4 select-sm w-full max-w-xs">
                                         <option disabled selected>Analyser un autre sondage</option>
+                                         
                                         {
-                                            surveys.map((survey,key) => {
-                                                return <option key={key} value={survey.id}>{survey.title}</option>
-                                            })
+                                            loadingsurveys ? <option disabled ><span className='animate-pulse'>chargement...</span></option>  :
+                                                surveys.map((survey, key) => {
+                                                    return <option key={key} value={survey.id}>{survey.title}</option>
+                                                })
                                         }
 
 
@@ -86,7 +104,7 @@ const AdminLayout = () => {
                     </div>
                 </div>
                 {/* main */}
-                <div className='h-full bg-[#111827] basis-full md:basis-4/5 overflow-auto'><Outlet/></div>
+                <div className='h-full bg-[#111827] basis-full md:basis-4/5 overflow-auto'><Outlet /></div>
             </div>
         </>
     );
